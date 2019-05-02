@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ERCAgent : MonoBehaviour
 {
@@ -66,8 +67,9 @@ public class ERCAgent : MonoBehaviour
             {
                 if (availableAmbulances > 0)
                 {
-                    int ambulancesNeeded = em.GetEmergencyPeopleEnvolved() / (Ambulance.maxPeople);
+                    int ambulancesNeeded = (int)Math.Ceiling((float)em.GetEmergencyPeopleEnvolved() / Ambulance.maxPeople);
                     ambulancesNeeded = Mathf.Min(ambulancesNeeded, availableAmbulances);
+
 
                     for (int i = 0; i < ambulancesNeeded; i++)
                     {
@@ -76,6 +78,7 @@ public class ERCAgent : MonoBehaviour
                         availableAmbulances--;
                     }
 
+                    em.SendAmbulance(ambulancesNeeded);
                     EmergenciesWaiting.Remove(em);
                     EmergenciesBeingTreated.Add(em);
                 }
@@ -115,6 +118,12 @@ public class ERCAgent : MonoBehaviour
     public void EmergencyEnded(Emergency em)
     {
         EmergenciesBeingTreated.Remove(em);
+    }
+
+    public void EmergencyReOpen(Emergency em)
+    {
+        EmergenciesBeingTreated.Remove(em);
+        EmergencyCall(em);
     }
 
     private Ambulance CreateAmbulance()

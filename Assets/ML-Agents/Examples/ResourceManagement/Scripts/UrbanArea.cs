@@ -19,7 +19,7 @@ public class UrbanArea : MonoBehaviour
         {
             yield return new WaitForSeconds(waitTime);
             var em_prob = Random.Range(0f, 1f);
-            if (em_prob <= 0.1) {
+            if (em_prob <= 0.05) {
                 CreateEmergency();
             }
         }
@@ -99,6 +99,11 @@ public class UrbanArea : MonoBehaviour
     {
         MyEmergencies.Remove(em.transform.localPosition);
         MyERC.EmergencyEnded(em);
+    }
+
+    public void ReOpenEmergency(Emergency em)
+    {
+        MyERC.EmergencyReOpen(em);
     }
 
     public void ResetUrbanArea()

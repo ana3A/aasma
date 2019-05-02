@@ -18,7 +18,7 @@ public class Ambulance : Resource
     public Boundary boundary;
     public Rigidbody rb;
     private Emergency myEmergency;
-    private float epson = 5f;
+    private float epson = 3f;
     private int peopleToTransport = 0;
     private bool done = false;
     private bool onDestination = false;
@@ -56,6 +56,7 @@ public class Ambulance : Resource
         {
             done = true;
             onDestination = false;
+            myEmergency.NAmbulances -= 1;
             return;
         }
 
@@ -63,6 +64,7 @@ public class Ambulance : Resource
         {
             done = true;
             onDestination = false;
+            myEmergency.NAmbulances -= 1;
             return;
         }
 

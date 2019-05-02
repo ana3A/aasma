@@ -14,6 +14,7 @@ public class Emergency : MonoBehaviour
     private UrbanArea MyArea;
     private float Duration;
     private float SalvationProb;
+    public int NAmbulances;
     
     public void InitEmergency(E_Severity severity, E_Type type, int peopleInvolved, UrbanArea area)
     {
@@ -22,6 +23,7 @@ public class Emergency : MonoBehaviour
         this.NPeopleEvolved = peopleInvolved;
         this.MyArea = area;
         this.Duration = 0;
+        this.NAmbulances = -1;
 
         if (severity == E_Severity.Light)
         {
@@ -81,6 +83,11 @@ public class Emergency : MonoBehaviour
         return this.gameObject.transform.localPosition;
     }
 
+    public void SendAmbulance(int ambulances)
+    {
+        this.NAmbulances = ambulances;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,12 +99,20 @@ public class Emergency : MonoBehaviour
     {
         Debug.Log(NPeopleEvolved);
         Duration += Time.deltaTime;
-        if (NPeopleEvolved < 1) // && this.Type == E_Type.Medical)
+        if (this.NAmbulances == 0)
         {
-            Debug.Log("Destroy Emergency");
-            //notify area + central
-            MyArea.RemoveEmergency(this);
-            Destroy(this.gameObject);
+            if (NPeopleEvolved < 1) // && this.Type == E_Type.Medical)
+            {
+                Debug.Log("Destroy Emergency");
+                //notify area + central
+                MyArea.RemoveEmergency(this);
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                this.NAmbulances = -1;
+                MyArea.ReOpenEmergency(this);
+            }
         }
 
         //TODO: Make people die
