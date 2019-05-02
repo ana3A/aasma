@@ -46,15 +46,15 @@ public class UrbanArea : MonoBehaviour
         Emergency.E_Severity Eserv;
         int people_involved = 0;
 
-        //if (type_probability <= 0.6f)
-        //{
+        if (type_probability <= 0.6f)
+        {
             people_involved = Random.Range((int)1, (int)21);
             Etype = Emergency.E_Type.Medical;
-        //}
-        //else if (type_probability <= 0.8f)
-        //{
-        //    Etype = Emergency.E_Type.Disaster;
-        //}
+        }
+        else //if (type_probability <= 0.8f)
+        {
+            Etype = Emergency.E_Type.Disaster;
+        }
         //else
         //{
         //    people_involved = Random.Range((int)1, (int)21);

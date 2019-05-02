@@ -129,6 +129,7 @@ public class ERCAgent : MonoBehaviour
     private Ambulance CreateAmbulance()
     {
         Vector3 pos = this.transform.localPosition;
+        pos.y = 1;
         GameObject am = Instantiate(AmbulanceObject, pos, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
         Ambulance a = am.GetComponent<Ambulance>();
         a.myERC = this;

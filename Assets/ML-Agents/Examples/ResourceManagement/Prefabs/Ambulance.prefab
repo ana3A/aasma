@@ -121,9 +121,10 @@ Camera:
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.83823526, g: 0.7266972, b: 0.585532, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -292,6 +293,7 @@ MonoBehaviour:
     zMin: -48
     zMax: 48
   rb: {fileID: 6682788570680701584}
+  maxWaitTime: 5
 --- !u!1 &6631435074181281312
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,9 +338,10 @@ Camera:
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.83823526, g: 0.7266972, b: 0.585532, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2

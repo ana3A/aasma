@@ -15,7 +15,10 @@ public class Emergency : MonoBehaviour
     private float Duration;
     private float SalvationProb;
     public int NAmbulances;
-    
+    public int NFiretrucks;
+    public float devastationLife;
+    private float regainEnergyPercentage;
+
     public void InitEmergency(E_Severity severity, E_Type type, int peopleInvolved, UrbanArea area)
     {
         this.Severity = severity;
@@ -24,22 +27,30 @@ public class Emergency : MonoBehaviour
         this.MyArea = area;
         this.Duration = 0;
         this.NAmbulances = -1;
+        this.NFiretrucks = -1;
 
         if (severity == E_Severity.Light)
         {
             SalvationProb = 0.99f;
+            devastationLife = 10;
+            regainEnergyPercentage = 0;
+            this.GetComponent<Renderer>().material.color = Color.yellow;
         } 
 
         else if (severity == E_Severity.Medium)
         {
             SalvationProb = 0.70f;
+            devastationLife = 50;
+            regainEnergyPercentage = 0.01f;
+            this.GetComponent<Renderer>().material.color = Color.magenta;
         }
         else
         {
             SalvationProb = 0.50f;
+            devastationLife = 100;
+            regainEnergyPercentage = 0.1f;
+            this.GetComponent<Renderer>().material.color = Color.red;
         }
-
-        //notify central that i exist
     }
 
     public float GetEmergencyDuration()
@@ -88,6 +99,11 @@ public class Emergency : MonoBehaviour
         this.NAmbulances = ambulances;
     }
 
+    public void SendFiretruck(int firetrucks)
+    {
+        this.NFiretrucks = firetrucks;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,19 +114,41 @@ public class Emergency : MonoBehaviour
     void Update()
     {
         Duration += Time.deltaTime;
-        if (this.NAmbulances == 0)
+
+        if (this.Type == E_Type.Medical)
         {
-            if (NPeopleEvolved < 1) // && this.Type == E_Type.Medical)
+            if (this.NAmbulances == 0)
             {
-                //notify area + central
+                if (NPeopleEvolved < 1) // && this.Type == E_Type.Medical)
+                {
+                    //notify area + central
+                    MyArea.RemoveEmergency(this);
+                    Destroy(this.gameObject);
+                }
+                else
+                {
+                    this.NAmbulances = -1;
+                    MyArea.ReOpenEmergency(this);
+                }
+            }
+        }
+        else if (this.Type == E_Type.Disaster)
+        {
+            if (this.devastationLife <= 0)
+            {
                 MyArea.RemoveEmergency(this);
                 Destroy(this.gameObject);
+                return;
             }
-            else
+
+            devastationLife += regainEnergyPercentage * devastationLife;
+
+            if (this.NFiretrucks == 0)
             {
-                this.NAmbulances = -1;
+                this.NFiretrucks = -1;
                 MyArea.ReOpenEmergency(this);
             }
+
         }
 
         //TODO: Make people die
