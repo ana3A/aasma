@@ -17,11 +17,13 @@ public class Ambulance : Resource
     static public int maxPeople = 2;
     public Boundary boundary;
     public Rigidbody rb;
+    public float maxWaitTime = 5;
     private Emergency myEmergency;
     private float epson = 3f;
     private int peopleToTransport = 0;
     private bool done = false;
     private bool onDestination = false;
+    private float waitTime = 0;
 
     public void SendAmbulance(Emergency em)
     {
@@ -36,6 +38,7 @@ public class Ambulance : Resource
         }
         else if(!done)
         {
+            rb.velocity = Vector3.zero;
             TreatEmergency();
         }
         else if(!onDestination)
@@ -68,13 +71,23 @@ public class Ambulance : Resource
             return;
         }
 
-        float salvationProb = UnityEngine.Random.Range(0, 1);
 
-        if (salvationProb <= myEmergency.GetEmergencySalvationProbability())
+        if (waitTime >= 1)
         {
-            myEmergency.NPeopleEvolved -= 1;
-            peopleToTransport++;
+            float salvationProb = UnityEngine.Random.Range(0, 1);
+            if (salvationProb <= myEmergency.GetEmergencySalvationProbability())
+            {
+                myEmergency.NPeopleEvolved -= 1;
+                peopleToTransport++;
+            }
+            waitTime = 0;
         }
+
+        else
+        {
+            waitTime += Time.deltaTime;
+        }
+        
     }
 
     private void Move(GameObject target)

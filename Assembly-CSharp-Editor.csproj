@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{710C0658-F705-9842-7A47-F95FA8B0532D}</ProjectGuid>
+    <ProjectGuid>{A4017C4C-B971-626A-0616-BBAABF04B803}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -76,25 +76,25 @@
      <Compile Include="Assets\ML-Agents\Editor\Tests\RayPerceptionTests.cs" />
      <Compile Include="Assets\ML-Agents\Editor\Tests\UtilitiesTests.cs" />
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -295,37 +295,37 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="System.IO.Abstractions">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Assets/ML-Agents/Plugins/System.IO.Abstractions.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/System.IO.Abstractions.dll</HintPath>
  </Reference>
  <Reference Include="System.IO.Abstractions.TestingHelpers">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Assets/ML-Agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
  </Reference>
  <Reference Include="Barracuda">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Assets/ML-Agents/Plugins/Barracuda.Core/Barracuda/Barracuda.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/Barracuda.Core/Barracuda/Barracuda.dll</HintPath>
  </Reference>
  <Reference Include="Google.Protobuf">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Assets/ML-Agents/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
  </Reference>
  <Reference Include="Grpc.Core">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Assets/ML-Agents/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
  </Reference>
  <Reference Include="System.Interactive.Async">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Assets/ML-Agents/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Editor">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Tracker">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Purchasing">
- <HintPath>C:/Users/kapam/OneDrive/Ambiente de Trabalho/aasma-master/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
+ <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -684,15 +684,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{7E359105-BB60-E908-C1E0-DAFCA6C70244}</Project>
+      <Project>{5B83FD4D-7AFE-E007-5738-8107B89B7D2F}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
     <ProjectReference Include="MacBLAS.csproj">
-      <Project>{A55B58D0-7C41-7913-2AA6-A71807AE279E}</Project>
+      <Project>{AC1633A4-44E0-15CF-E3DC-822714A77CF1}</Project>
       <Name>MacBLAS</Name>
     </ProjectReference>
     <ProjectReference Include="iOSBLAS.csproj">
-      <Project>{AAEE7CFA-DE80-73D4-2934-B4FCCDCFF8D1}</Project>
+      <Project>{DA75DF5B-40A3-B7E7-75BD-BBF66AAC0371}</Project>
       <Name>iOSBLAS</Name>
     </ProjectReference>
   </ItemGroup>

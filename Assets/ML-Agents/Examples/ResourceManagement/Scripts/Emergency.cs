@@ -97,13 +97,11 @@ public class Emergency : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(NPeopleEvolved);
         Duration += Time.deltaTime;
         if (this.NAmbulances == 0)
         {
             if (NPeopleEvolved < 1) // && this.Type == E_Type.Medical)
             {
-                Debug.Log("Destroy Emergency");
                 //notify area + central
                 MyArea.RemoveEmergency(this);
                 Destroy(this.gameObject);
