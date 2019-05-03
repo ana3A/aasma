@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Resource : MonoBehaviour
 {
+    [System.Serializable]
+    public class Boundary
+    {
+        public float xMin, xMax, zMin, zMax;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

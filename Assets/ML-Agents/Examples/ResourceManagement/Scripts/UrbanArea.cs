@@ -6,10 +6,14 @@ using UnityEngine;
 public class UrbanArea : MonoBehaviour
 {
     public GameObject EmergencyObject;
+    public GameObject DisasterEmergencyObject;
+    public GameObject MedicalEmergencyObject;
     //public int numBananas;
     public float range;
     public float TimeBetween;
     public ERCAgent MyERC;
+
+    enum E_Type { Medical, Disaster, Both}
 
     //Key: position Value: emergency
     private Dictionary<Vector3, GameObject> MyEmergencies;
@@ -42,18 +46,18 @@ public class UrbanArea : MonoBehaviour
     void CreateEmergency()
     {
         float type_probability = Random.Range(0f, 1f);
-        Emergency.E_Type Etype;
         Emergency.E_Severity Eserv;
-        int people_involved = 0;
+        int people_involved = -1;
+        E_Type Etype;
 
         if (type_probability <= 0.6f)
         {
             people_involved = Random.Range((int)1, (int)21);
-            Etype = Emergency.E_Type.Medical;
+            Etype = E_Type.Medical;
         }
         else //if (type_probability <= 0.8f)
         {
-            Etype = Emergency.E_Type.Disaster;
+            Etype = E_Type.Disaster;
         }
         //else
         //{
@@ -80,14 +84,31 @@ public class UrbanArea : MonoBehaviour
         {
             pos = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
         }
-        GameObject em = Instantiate(EmergencyObject, pos, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
-        Emergency e = em.GetComponent<Emergency>();
-        e.InitEmergency(Eserv, Etype, people_involved, this);
+        
 
-        //Notify Area that emergency exists
-        MyEmergencies.Add(em.gameObject.transform.localPosition, em);
+        if (Etype == E_Type.Medical)
+        {
+            GameObject em = Instantiate(MedicalEmergencyObject, pos, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+            MedicalEmergency e = em.GetComponent<MedicalEmergency>();
+            e.InitEmergency(Eserv, people_involved, this);
+            MyERC.EmergencyCall(e);
+            //Notify Area that emergency exists
+            MyEmergencies.Add(em.gameObject.transform.localPosition, em);
+        }
+
+        else if (Etype == E_Type.Disaster)
+        {
+            GameObject em = Instantiate(DisasterEmergencyObject, pos, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+            DisasterEmergency e = em.GetComponent<DisasterEmergency>();
+            e.InitEmergency(Eserv, people_involved, this);
+            MyERC.EmergencyCall(e);
+            //Notify Area that emergency exists
+            MyEmergencies.Add(em.gameObject.transform.localPosition, em);
+        }
+
+        
         //Notify ERC that an emergency occured -> simulating the "calls"
-        MyERC.EmergencyCall(e);
+        
     }
 
     private bool TooCloseToCentral(Vector3 pos) {
@@ -101,7 +122,17 @@ public class UrbanArea : MonoBehaviour
         MyERC.EmergencyEnded(em);
     }
 
-    public void ReOpenEmergency(Emergency em)
+    //public void ReOpenEmergency(Emergency em)
+    //{
+    //    MyERC.EmergencyReOpen(em);
+    //}
+
+    public void ReOpenEmergency(DisasterEmergency em)
+    {
+        MyERC.EmergencyReOpen(em);
+    }
+
+    public void ReOpenEmergency(MedicalEmergency em)
     {
         MyERC.EmergencyReOpen(em);
     }

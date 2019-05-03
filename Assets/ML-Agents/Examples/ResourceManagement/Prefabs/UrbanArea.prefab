@@ -589,6 +589,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5951473971427982168, guid: 1bbd8d07cc8381c4691cf86315a6ece7,
+        type: 3}
+      propertyPath: FiretruckObject
+      value: 
+      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
+        type: 3}
+    - target: {fileID: 5951473971427982168, guid: 1bbd8d07cc8381c4691cf86315a6ece7,
+        type: 3}
+      propertyPath: nFiretruck
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6743863147206117270, guid: 1bbd8d07cc8381c4691cf86315a6ece7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bbd8d07cc8381c4691cf86315a6ece7, type: 3}

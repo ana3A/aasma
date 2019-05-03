@@ -6,72 +6,36 @@ using UnityEngine;
 public class Emergency : MonoBehaviour
 {
     public enum E_Severity { Light, Medium, Severe };
-    public enum E_Type { Medical, Disaster, Both }
-
-    private E_Severity Severity;
-    private E_Type Type;
-    public int NPeopleEvolved;
-    private UrbanArea MyArea;
-    private float Duration;
-    private float SalvationProb;
+    protected E_Severity Severity;
+    protected UrbanArea MyArea;
+    protected float Duration;
     public int NAmbulances;
     public int NFiretrucks;
-    public float devastationLife;
-    private float regainEnergyPercentage;
+    protected Material MyMaterial;
+    public float LightWaitTime;
+    public float MediumWaitTime;
+    public float SevereWaitTime;
+    public float WaitTime;
 
-    public void InitEmergency(E_Severity severity, E_Type type, int peopleInvolved, UrbanArea area)
+    public void Start()
     {
-        this.Severity = severity;
-        this.Type = type;
-        this.NPeopleEvolved = peopleInvolved;
+
+    }
+
+    public void Update()
+    {
+
+    }
+
+    public void InitEmergency(UrbanArea area, E_Severity severity, Material material)
+    {
         this.MyArea = area;
         this.Duration = 0;
         this.NAmbulances = -1;
         this.NFiretrucks = -1;
-
-        if (severity == E_Severity.Light)
-        {
-            SalvationProb = 0.99f;
-            devastationLife = 10;
-            regainEnergyPercentage = 0;
-            this.GetComponent<Renderer>().material.color = Color.yellow;
-        } 
-
-        else if (severity == E_Severity.Medium)
-        {
-            SalvationProb = 0.70f;
-            devastationLife = 50;
-            regainEnergyPercentage = 0.01f;
-            this.GetComponent<Renderer>().material.color = Color.magenta;
-        }
-        else
-        {
-            SalvationProb = 0.50f;
-            devastationLife = 100;
-            regainEnergyPercentage = 0.1f;
-            this.GetComponent<Renderer>().material.color = Color.red;
-        }
-    }
-
-    public float GetEmergencyDuration()
-    {
-        return Duration;
-    }
-
-    public float GetEmergencySalvationProbability()
-    {
-        return SalvationProb;
-    }
-
-
-    public int GetEmergencyPeopleEnvolved()
-    {
-        return this.NPeopleEvolved;
-    }
-
-    public void SetEmergencyPeopleEnvolved(int n)
-    {
-        this.NPeopleEvolved = n;
+        this.Severity = severity;
+        this.MyMaterial = material;
+        ChangeWaitTime();
     }
 
     public E_Severity GetEmergencySeverity()
@@ -84,74 +48,54 @@ public class Emergency : MonoBehaviour
         this.Severity = severity;
     }
 
-    public E_Type GetEmergencyType()
+    public void ChangeWaitTime()
     {
-        return this.Type;
-    }
-
-    public Vector3 GetEmergencyPosition()
-    {
-        return this.gameObject.transform.localPosition;
-    }
-
-    public void SendAmbulance(int ambulances)
-    {
-        this.NAmbulances = ambulances;
-    }
-
-    public void SendFiretruck(int firetrucks)
-    {
-        this.NFiretrucks = firetrucks;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Duration += Time.deltaTime;
-
-        if (this.Type == E_Type.Medical)
+        if (Severity == E_Severity.Light)
         {
-            if (this.NAmbulances == 0)
-            {
-                if (NPeopleEvolved < 1) // && this.Type == E_Type.Medical)
-                {
-                    //notify area + central
-                    MyArea.RemoveEmergency(this);
-                    Destroy(this.gameObject);
-                }
-                else
-                {
-                    this.NAmbulances = -1;
-                    MyArea.ReOpenEmergency(this);
-                }
-            }
+            WaitTime = LightWaitTime;
         }
-        else if (this.Type == E_Type.Disaster)
+        else if (Severity == E_Severity.Medium)
         {
-            if (this.devastationLife <= 0)
-            {
-                MyArea.RemoveEmergency(this);
-                Destroy(this.gameObject);
-                return;
-            }
-
-            devastationLife += regainEnergyPercentage * devastationLife;
-
-            if (this.NFiretrucks == 0)
-            {
-                this.NFiretrucks = -1;
-                MyArea.ReOpenEmergency(this);
-            }
-
+            WaitTime = MediumWaitTime;
         }
+        else
+        {
+            WaitTime = SevereWaitTime;
+        }
+    }
 
-        //TODO: Make people die
-        //TODO: Incendios/Desastres
+    public float GetEmergencyDuration()
+    {
+        return Duration;
+    }
+
+    public virtual void ChangeSeverity()
+    {
+
+    }
+
+    public virtual bool TreatEmergency()
+    {
+        return false;
+    }
+
+    public virtual void ChangeSeverity(E_Severity severity)
+    {
+
+    }
+
+    public virtual void SendResources(int ambulances, int firetrucks)
+    {
+
+    }
+
+    public virtual int GetEmergencyPeopleEnvolved()
+    {
+        return 0;
+    }
+
+    public virtual float GetEmergencyDisasterLife()
+    {
+        return 0;
     }
 }

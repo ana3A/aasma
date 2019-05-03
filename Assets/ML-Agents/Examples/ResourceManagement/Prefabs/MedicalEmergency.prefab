@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6694673134345915298}
   - component: {fileID: 6653236549907606242}
   - component: {fileID: 6682788570680701584}
-  - component: {fileID: 3213491718353204189}
+  - component: {fileID: 3405395882643108644}
   m_Layer: 0
-  m_Name: Emergency
+  m_Name: MedicalEmergency
   m_TagString: agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,21 +109,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &3213491718353204189
+--- !u!114 &3405395882643108644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6630905368245998450}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5db63b523f96bd049a6aaa2534e18c8f, type: 3}
+  m_Script: {fileID: 11500000, guid: afa1c4ee7b33c7d4d9ed9e8536cb0f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NAmbulances: 0
-  NFiretrucks: 0
-  LightWaitTime: 0
-  MediumWaitTime: 0
-  SevereWaitTime: 0
+  NAmbulances: -1
+  NFiretrucks: -1
+  LightWaitTime: 1
+  MediumWaitTime: 2
+  SevereWaitTime: 3
   WaitTime: 0
+  NPeopleInvolved: 0

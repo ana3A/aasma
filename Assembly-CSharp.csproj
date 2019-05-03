@@ -60,10 +60,12 @@
      <Compile Include="Assets\ML-Agents\Examples\BananaCollectors\Scripts\BananaArea.cs" />
      <Compile Include="Assets\ML-Agents\Examples\BananaCollectors\Scripts\BananaLogic.cs" />
      <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\Ambulance.cs" />
+     <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\DisasterEmergency.cs" />
      <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\Emergency.cs" />
      <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\EmergencyComparor.cs" />
      <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\ERCAgent.cs" />
      <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\Firetruck.cs" />
+     <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\MedicalEmergency.cs" />
      <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\Resource.cs" />
      <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\ResourcesAcademy.cs" />
      <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\UrbanArea.cs" />

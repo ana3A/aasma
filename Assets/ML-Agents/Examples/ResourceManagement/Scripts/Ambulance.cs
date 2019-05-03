@@ -3,12 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Boundary
-{
-    public float xMin, xMax, zMin, zMax;
-}
-
 public class Ambulance : Resource
 {
     public float speed;
@@ -72,12 +66,10 @@ public class Ambulance : Resource
         }
 
 
-        if (waitTime >= 1)
+        if (waitTime >= myEmergency.WaitTime)
         {
-            float salvationProb = UnityEngine.Random.Range(0, 1);
-            if (salvationProb <= myEmergency.GetEmergencySalvationProbability())
+            if(myEmergency.TreatEmergency())
             {
-                myEmergency.NPeopleEvolved -= 1;
                 peopleToTransport++;
             }
             waitTime = 0;

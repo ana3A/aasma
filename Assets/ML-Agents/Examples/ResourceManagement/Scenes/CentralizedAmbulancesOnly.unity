@@ -140,6 +140,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}
+  DisasterEmergencyObject: {fileID: 6630905368245998450, guid: 7e6e22d0992251c458bec7a29ca97b63,
+    type: 3}
+  MedicalEmergencyObject: {fileID: 6630905368245998450, guid: 2a89647936e1571408fa4eda628f96f2,
+    type: 3}
   range: 48
   TimeBetween: 0.1
   MyERC: {fileID: 1430582808}
@@ -223,6 +227,17 @@ PrefabInstance:
       propertyPath: nAmbulances
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: nFiretruck
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: FiretruckObject
+      value: 
+      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
 --- !u!1 &1268393685

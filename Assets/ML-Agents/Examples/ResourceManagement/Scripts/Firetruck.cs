@@ -3,11 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Boundary
-{
-    public float xMin, xMax, zMin, zMax;
-}
+
 
 public class Firetruck : Resource
 {
@@ -22,11 +18,18 @@ public class Firetruck : Resource
     private bool done = false;
     private bool onDestination = false;
     private float waitTime = 0;
-    private float waterDeposit = 25;
+    static public int damage = 2;
+    static public float waterDeposit = 25;
+    private float curWaterDeposit = 25;
 
     public void SendFiretruck(Emergency em)
     {
         myEmergency = em;
+    }
+
+    void Start()
+    {
+        curWaterDeposit = waterDeposit;
     }
 
     void Update()
@@ -54,7 +57,7 @@ public class Firetruck : Resource
     private void TreatEmergency()
     {
 
-        if (waterDeposit <= 0)
+        if (curWaterDeposit <= 0)
         {
             done = true;
             onDestination = false;
@@ -62,7 +65,7 @@ public class Firetruck : Resource
             return;
         }
 
-        if (myEmergency.devastationLife < 1)
+        if (myEmergency.GetEmergencyDisasterLife() < 1)
         {
             done = true;
             onDestination = false;
@@ -71,10 +74,13 @@ public class Firetruck : Resource
         }
 
 
-        if (waitTime >= 1)
+        if (waitTime >= myEmergency.WaitTime)
         {
-            myEmergency.devastationLife -= 5;
-            waterDeposit -= 5;
+            if (myEmergency.TreatEmergency())
+            {
+                curWaterDeposit -= damage;
+            }
+            waitTime = 0;
         }
 
         else

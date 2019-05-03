@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6694673134345915298}
   - component: {fileID: 6653236549907606242}
   - component: {fileID: 6682788570680701584}
-  - component: {fileID: 3213491718353204189}
+  - component: {fileID: -2896680739295238273}
   m_Layer: 0
-  m_Name: Emergency
+  m_Name: DisasterEmergency
   m_TagString: agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,21 +109,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &3213491718353204189
+--- !u!114 &-2896680739295238273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6630905368245998450}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5db63b523f96bd049a6aaa2534e18c8f, type: 3}
+  m_Script: {fileID: 11500000, guid: cb83d4b730e102242b2296eed820c175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NAmbulances: 0
-  NFiretrucks: 0
-  LightWaitTime: 0
-  MediumWaitTime: 0
-  SevereWaitTime: 0
+  NAmbulances: -1
+  NFiretrucks: -1
+  LightWaitTime: 1
+  MediumWaitTime: 1
+  SevereWaitTime: 1
   WaitTime: 0
+  DevastationLife: 0
+  LightDevastationLife: 10
+  MediumDevastationLife: 50
+  SevereDevastationLife: 100
+  LightRegainEnergyPercentage: 0
+  MediumRegainEnergyPercentage: 0
+  SevereRegainEnergyPercentage: 0
