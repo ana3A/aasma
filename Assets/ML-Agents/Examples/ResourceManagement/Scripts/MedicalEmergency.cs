@@ -13,7 +13,7 @@ public class MedicalEmergency : Emergency
         base.InitEmergency(area, severity, this.GetComponent<Renderer>().material);
         this.NPeopleInvolved = peopleInvolved;
         this.SalvationProb = 0.99f;
-        ChangeSeverity(severity);
+        NewSeverity(severity);
         ChangeWaitTime();
     }
 
@@ -32,6 +32,7 @@ public class MedicalEmergency : Emergency
     void Update()
     {
         Duration += Time.deltaTime;
+
         if (this.NAmbulances == 0)
         {
             if (NPeopleInvolved < 1)
@@ -42,10 +43,45 @@ public class MedicalEmergency : Emergency
             }
             else
             {
+
+                IncreaseSeverity();
+
                 this.NAmbulances = -1;
                 MyArea.ReOpenEmergency(this);
             }
         }
+
+        else
+        {
+            CheckIfDead();
+            
+            IncreaseSeverity();
+        }
+
+    }
+
+    public override void CheckIfDead()
+    {
+        float dyingProb = UnityEngine.Random.Range(0f, 1f);
+        if (Severity == E_Severity.Medium)
+        {
+            if (dyingProb <= 0.001)
+            {
+                Debug.Log("medium dead" + dyingProb);
+                NPeopleInvolved -= 1;
+                MyArea.NotSaved();
+            }
+        }
+        else if (Severity == E_Severity.Severe)
+        {
+            if (dyingProb <= 0.005)
+            {
+                Debug.Log("severe dead" + dyingProb);
+                NPeopleInvolved -= 1;
+                MyArea.NotSaved();
+            }
+        }
+        
     }
 
     public override void SendResources(int a, int f)
@@ -53,7 +89,7 @@ public class MedicalEmergency : Emergency
         this.NAmbulances = a;
     }
 
-    public override void ChangeSeverity(E_Severity severity)
+    public override void NewSeverity(E_Severity severity)
     {
         if (severity == E_Severity.Light)
         {
@@ -72,14 +108,33 @@ public class MedicalEmergency : Emergency
         }
     }
 
+    public override void ChangeSeverity(E_Severity severity)
+    {
+        if (severity == E_Severity.Medium)
+        {
+            SetEmergencySeverity(severity);
+            SalvationProb = 0.70f;
+            MyMaterial.color = new Color(0f, 149f / 255f, 255f / 255f);
+        }
+        else
+        {
+            SetEmergencySeverity(severity);
+            SalvationProb = 0.50f;
+            MyMaterial.color = new Color(0f, 62f / 255f, 107f / 255f);
+        }
+    }
+
     public override bool TreatEmergency()
     {
-        float salvationProb = UnityEngine.Random.Range(0, 1);
+        float salvationProb = UnityEngine.Random.Range(0f, 1f);
         if (salvationProb <= this.SalvationProb)
         {
             NPeopleInvolved -= 1;
+            MyArea.Saved();
             return true;
         }
+        NPeopleInvolved -= 1;
+        MyArea.NotSaved();
         return false;
     }
 }

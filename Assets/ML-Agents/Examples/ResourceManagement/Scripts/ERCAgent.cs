@@ -21,6 +21,8 @@ public class ERCAgent : MonoBehaviour
     private EmergencyComparor EmComparor;
     private int availableAmbulances;
     private int availableFiretrucks;
+    private float spawnInterval = 0;
+    private float maxSpawnInterval = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -62,52 +64,64 @@ public class ERCAgent : MonoBehaviour
             }
         }*/
         //Se há emergencias por tratar
-        if (MedicalEmergenciesWaiting.Count > 0)
+
+        if (spawnInterval >= maxSpawnInterval)
         {
-            MedicalEmergency em = MedicalEmergenciesWaiting[0];
-
-            if (availableAmbulances > 0)
+            if (MedicalEmergenciesWaiting.Count > 0)
             {
-                int ambulancesNeeded = (int)Math.Ceiling((float)em.GetEmergencyPeopleEnvolved() / Ambulance.maxPeople);
-                Debug.Log(ambulancesNeeded);
-                ambulancesNeeded = Mathf.Min(ambulancesNeeded, availableAmbulances);
+                MedicalEmergency em = MedicalEmergenciesWaiting[0];
 
-
-                for (int i = 0; i < ambulancesNeeded; i++)
+                if (availableAmbulances > 0)
                 {
-                    Ambulance am = CreateAmbulance();
-                    am.SendAmbulance(em);
-                    availableAmbulances--;
+                    int ambulancesNeeded = (int)Math.Ceiling((float)em.GetEmergencyPeopleEnvolved() / Ambulance.maxPeople);
+                    ambulancesNeeded = Mathf.Min(ambulancesNeeded, availableAmbulances);
+
+
+                    for (int i = 0; i < ambulancesNeeded; i++)
+                    {
+                        Ambulance am = CreateAmbulance();
+                        am.SendAmbulance(em);
+                        availableAmbulances--;
+                    }
+
+                    em.SendResources(ambulancesNeeded, 0);
+                    MedicalEmergenciesWaiting.Remove(em);
+                    //EmergenciesBeingTreated.Add(em);
                 }
-
-                em.SendResources(ambulancesNeeded, 0);
-                MedicalEmergenciesWaiting.Remove(em);
-                //EmergenciesBeingTreated.Add(em);
-            }
-        }
-
-        if (DisasterEmergenciesWaiting.Count > 0)
-        {
-            DisasterEmergency em = DisasterEmergenciesWaiting[0];
-
-            if (availableFiretrucks > 0)
-            {
-                int firetrucksNeeded = (int)Math.Ceiling((float)em.GetEmergencyDisasterLife() / Firetruck.waterDeposit);
-                firetrucksNeeded = Mathf.Min(firetrucksNeeded, availableFiretrucks);
-
-                for (int i = 0; i < firetrucksNeeded; i++)
-                {
-                    Firetruck am = CreateFiretruck();
-                    am.SendFiretruck(em);
-                    availableFiretrucks--;
-                }
-
-                em.SendResources(0, firetrucksNeeded);
-                DisasterEmergenciesWaiting.Remove(em);
-                //EmergenciesBeingTreated.Add(em);
             }
 
+            if (DisasterEmergenciesWaiting.Count > 0)
+            {
+                DisasterEmergency em = DisasterEmergenciesWaiting[0];
+
+                if (availableFiretrucks > 0)
+                {
+                    int firetrucksNeeded = (int)Math.Ceiling((float)em.GetEmergencyDisasterLife() / Firetruck.waterDeposit);
+                    firetrucksNeeded = Mathf.Min(firetrucksNeeded, availableFiretrucks);
+
+                    for (int i = 0; i < firetrucksNeeded; i++)
+                    {
+                        Firetruck am = CreateFiretruck();
+                        am.SendFiretruck(em);
+                        availableFiretrucks--;
+                    }
+
+                    em.SendResources(0, firetrucksNeeded);
+                    DisasterEmergenciesWaiting.Remove(em);
+                    //EmergenciesBeingTreated.Add(em);
+                }
+
+            }
+
+            spawnInterval = 0;
         }
+
+        else
+        {
+            spawnInterval += Time.deltaTime;
+        }
+
+        
     }
 
     public void ReturnAmbulance()

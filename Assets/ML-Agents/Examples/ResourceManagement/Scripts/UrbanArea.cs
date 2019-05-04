@@ -12,6 +12,12 @@ public class UrbanArea : MonoBehaviour
     public float range;
     public float TimeBetween;
     public ERCAgent MyERC;
+    public int atualEmergencies = 0;
+    public int maxEmergencies = 10;
+
+    public int allPeople = 0;
+    public int peopleSaved = 0;
+    public int peopleNotSaved = 0;
 
     enum E_Type { Medical, Disaster, Both}
 
@@ -22,9 +28,14 @@ public class UrbanArea : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(waitTime);
-            var em_prob = Random.Range(0f, 1f);
-            if (em_prob <= 0.05) {
-                CreateEmergency();
+            if (atualEmergencies < maxEmergencies)
+            {
+                var em_prob = Random.Range(0f, 1f);
+                if (em_prob <= 0.05)
+                {
+                    atualEmergencies += 1;
+                    CreateEmergency();
+                }
             }
         }
     }
@@ -118,14 +129,22 @@ public class UrbanArea : MonoBehaviour
     }
     public void RemoveEmergency(Emergency em)
     {
+        atualEmergencies -= 1;
         MyEmergencies.Remove(em.transform.localPosition);
         MyERC.EmergencyEnded(em);
     }
 
-    //public void ReOpenEmergency(Emergency em)
-    //{
-    //    MyERC.EmergencyReOpen(em);
-    //}
+    public void Saved()
+    {
+        peopleSaved += 1;
+        allPeople += 1;
+    }
+
+    public void NotSaved()
+    {
+        peopleNotSaved += 1;
+        allPeople += 1;
+    }
 
     public void ReOpenEmergency(DisasterEmergency em)
     {

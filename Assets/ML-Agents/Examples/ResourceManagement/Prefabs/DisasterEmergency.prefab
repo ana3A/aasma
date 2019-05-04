@@ -128,9 +128,9 @@ MonoBehaviour:
   SevereWaitTime: 1
   WaitTime: 0
   DevastationLife: 0
-  LightDevastationLife: 10
+  LightDevastationLife: 20
   MediumDevastationLife: 50
   SevereDevastationLife: 100
   LightRegainEnergyPercentage: 0
-  MediumRegainEnergyPercentage: 0
-  SevereRegainEnergyPercentage: 0
+  MediumRegainEnergyPercentage: 0.0001
+  SevereRegainEnergyPercentage: 0.0005

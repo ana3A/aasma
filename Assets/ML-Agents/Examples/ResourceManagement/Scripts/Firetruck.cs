@@ -18,9 +18,9 @@ public class Firetruck : Resource
     private bool done = false;
     private bool onDestination = false;
     private float waitTime = 0;
-    static public int damage = 2;
-    static public float waterDeposit = 25;
-    private float curWaterDeposit = 25;
+    static public int damage = 3;
+    static public float waterDeposit = 30;
+    private float curWaterDeposit = 30;
 
     public void SendFiretruck(Emergency em)
     {
@@ -65,7 +65,7 @@ public class Firetruck : Resource
             return;
         }
 
-        if (myEmergency.GetEmergencyDisasterLife() < 1)
+        if (myEmergency.GetEmergencyDisasterLife() <= 0)
         {
             done = true;
             onDestination = false;

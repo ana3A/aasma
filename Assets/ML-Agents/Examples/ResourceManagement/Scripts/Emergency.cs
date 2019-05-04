@@ -79,6 +79,16 @@ public class Emergency : MonoBehaviour
         return false;
     }
 
+    public virtual void CheckIfDead()
+    {
+
+    }
+
+    public virtual void NewSeverity(E_Severity severity)
+    {
+
+    }
+
     public virtual void ChangeSeverity(E_Severity severity)
     {
 
@@ -97,5 +107,25 @@ public class Emergency : MonoBehaviour
     public virtual float GetEmergencyDisasterLife()
     {
         return 0;
+    }
+
+    public void IncreaseSeverity()
+    {
+        //yield return new WaitForSeconds(0.1f);
+        var em_prob = UnityEngine.Random.Range(0f, 1f);
+        if (em_prob <= 0.0005)
+
+        {
+            if (this.Severity == E_Severity.Light)
+            {
+                ChangeSeverity(E_Severity.Medium);
+            }
+
+            else if (this.Severity == E_Severity.Medium)
+            {
+                ChangeSeverity(E_Severity.Severe);
+            }
+
+        }
     }
 }
