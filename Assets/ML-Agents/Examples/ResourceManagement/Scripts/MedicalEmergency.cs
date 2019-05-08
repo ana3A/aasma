@@ -6,12 +6,17 @@ using UnityEngine;
 public class MedicalEmergency : Emergency
 {
     public int NPeopleInvolved;
+    public int totalPeople;
+    public int savedPeople;
+    public int successRate;
     private float SalvationProb;
 
     public void InitEmergency(E_Severity severity, int peopleInvolved, UrbanArea area)
     {
         base.InitEmergency(area, severity, this.GetComponent<Renderer>().material);
         this.NPeopleInvolved = peopleInvolved;
+        this.totalPeople = peopleInvolved;
+        this.successRate = -1;
         this.SalvationProb = 0.99f;
         NewSeverity(severity);
         ChangeWaitTime();
@@ -23,13 +28,13 @@ public class MedicalEmergency : Emergency
     }
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
         Duration += Time.deltaTime;
 
@@ -38,7 +43,7 @@ public class MedicalEmergency : Emergency
             if (NPeopleInvolved < 1)
             {
                 //notify area + central
-                MyArea.RemoveEmergency(this);
+                MyArea.RemoveEmergency(this, successRate);
                 Destroy(this.gameObject);
             }
             else
@@ -130,11 +135,15 @@ public class MedicalEmergency : Emergency
         if (salvationProb <= this.SalvationProb)
         {
             NPeopleInvolved -= 1;
+            savedPeople += 1;
+            successRate = savedPeople/totalPeople;
             MyArea.Saved();
             return true;
         }
         NPeopleInvolved -= 1;
+        successRate = savedPeople/totalPeople;
         MyArea.NotSaved();
         return false;
     }
+
 }

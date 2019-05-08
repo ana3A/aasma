@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class ERCAgent : MonoBehaviour
@@ -19,14 +20,19 @@ public class ERCAgent : MonoBehaviour
     [SerializeField]
     private int nFiretruck;
     private EmergencyComparor EmComparor;
+    [SerializeField]
     private int availableAmbulances;
+    [SerializeField]
     private int availableFiretrucks;
     private float spawnInterval = 0;
     private float maxSpawnInterval = 1;
 
+    private bool gameOver;
+
     // Start is called before the first frame update
     void Start()
     {
+        gameOver = false;
         EmComparor = new EmergencyComparor();
         EmergencyIndex = new Dictionary<Vector3, int>();
         MedicalEmergenciesWaiting = new List<MedicalEmergency>();
@@ -211,7 +217,15 @@ public class ERCAgent : MonoBehaviour
         return f;
     }
 
+    public bool getGameOver()
+    {
+        return gameOver;
+    }
 
+    public void SimulationFailed ()
+    {
+        gameOver = true;
+    }
 
 
 

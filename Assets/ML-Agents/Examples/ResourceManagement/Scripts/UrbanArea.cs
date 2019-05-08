@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class UrbanArea : MonoBehaviour
@@ -13,11 +15,16 @@ public class UrbanArea : MonoBehaviour
     public float TimeBetween;
     public ERCAgent MyERC;
     public int atualEmergencies = 0;
-    public int maxEmergencies = 10;
+    public int maxEmergencies = 15;
 
     public int allPeople = 0;
     public int peopleSaved = 0;
     public int peopleNotSaved = 0;
+    public int failures = 0;
+    public Text restartText;
+    private bool restart;
+    public Text gameOverText;
+    private bool gameOver;    
 
     enum E_Type { Medical, Disaster, Both}
 
@@ -27,7 +34,21 @@ public class UrbanArea : MonoBehaviour
     {
         while (true)
         {
+            if (MyERC.getGameOver() || gameOver || (failures > 20))
+            {
+                gameOverText.text = "Simulation Failed!";
+                restartText.text = "Press 'R' for Restart";
+                restart = true;
+                break;
+            }
+
             yield return new WaitForSeconds(waitTime);
+            
+            if (atualEmergencies == maxEmergencies)
+            {
+                gameOver = true;
+            }
+
             if (atualEmergencies < maxEmergencies)
             {
                 var em_prob = Random.Range(0f, 1f);
@@ -43,6 +64,10 @@ public class UrbanArea : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        restart = false;
+        restartText.text = "";
+        gameOverText.text = "";
+        gameOver = false;
         MyEmergencies = new Dictionary<Vector3, GameObject>();
         var coroutine = MakeEmergenciesOccur(TimeBetween);
         StartCoroutine(coroutine);
@@ -51,7 +76,13 @@ public class UrbanArea : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (restart)
+        {
+            if (Input.GetKeyDown (KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
     }
 
     void CreateEmergency()
@@ -130,6 +161,17 @@ public class UrbanArea : MonoBehaviour
     public void RemoveEmergency(Emergency em)
     {
         atualEmergencies -= 1;
+        MyEmergencies.Remove(em.transform.localPosition);
+        MyERC.EmergencyEnded(em);
+    }
+
+    public void RemoveEmergency(Emergency em, int successRate)
+    {
+        atualEmergencies -= 1;
+        if (successRate < 0.5)
+        {
+            failures +=1;
+        }
         MyEmergencies.Remove(em.transform.localPosition);
         MyERC.EmergencyEnded(em);
     }
