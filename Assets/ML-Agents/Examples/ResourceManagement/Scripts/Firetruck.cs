@@ -15,42 +15,61 @@ public class Firetruck : Resource
     public float maxWaitTime = 5;
     private Emergency myEmergency;
     private float epson = 3f;
-    private bool done = false;
-    private bool onDestination = false;
     private float waitTime = 0;
     static public int damage = 3;
     static public float waterDeposit = 30;
     private float curWaterDeposit = 30;
 
+    //States
+    public bool goingToEmergency;
+    public bool onEmergency;
+    public bool goingToERC;
+    public bool returnedToERC;
+    public bool free;
+
     public void SendFiretruck(Emergency em)
     {
         myEmergency = em;
+        goingToEmergency = true;
+        returnedToERC = false;
+        free = false;
     }
 
     void Start()
     {
         curWaterDeposit = waterDeposit;
+        returnedToERC = true;
+        onEmergency = false;
+        goingToEmergency = false;
+        goingToERC = false;
+        free = true;
     }
 
     void Update()
     {
-        if (!done && !onDestination)
+        if (!free)
         {
-            Move(myEmergency.gameObject);
-        }
-        else if (!done)
-        {
-            rb.velocity = Vector3.zero;
-            TreatEmergency();
-        }
-        else if (!onDestination)
-        {
-            Move(myERC.gameObject);
-        }
-        else
-        {
-            myERC.ReturnFiretruck();
-            Destroy(this.gameObject);
+            if (goingToEmergency)
+            {
+                Move(myEmergency.gameObject);
+            }
+
+            else if (onEmergency)
+            {
+                rb.velocity = Vector3.zero;
+                TreatEmergency();
+            }
+
+            else if (goingToERC)
+            {
+                Move(myERC.gameObject);
+            }
+
+            else if (returnedToERC)
+            {
+                myERC.ReturnFiretruck(this);
+                free = true;
+            }
         }
     }
 
@@ -59,16 +78,16 @@ public class Firetruck : Resource
 
         if (curWaterDeposit <= 0)
         {
-            done = true;
-            onDestination = false;
+            onEmergency = false;
+            goingToERC = true;
             myEmergency.NFiretrucks -= 1;
             return;
         }
 
         if (myEmergency.GetEmergencyDisasterLife() <= 0)
         {
-            done = true;
-            onDestination = false;
+            onEmergency = false;
+            goingToERC = true;
             myEmergency.NFiretrucks -= 1;
             return;
         }
@@ -94,7 +113,16 @@ public class Firetruck : Resource
     {
         if (Vector3.Distance(target.transform.position, gameObject.transform.position) < epson)
         {
-            onDestination = true;
+            if (goingToEmergency)
+            {
+                goingToEmergency = false;
+                onEmergency = true;
+            }
+            else
+            {
+                goingToERC = false;
+                returnedToERC = true;
+            }
             return;
         }
 

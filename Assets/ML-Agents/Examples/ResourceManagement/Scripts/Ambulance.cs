@@ -15,34 +15,57 @@ public class Ambulance : Resource
     private Emergency myEmergency;
     private float epson = 3f;
     private int peopleToTransport = 0;
-    private bool done = false;
-    private bool onDestination = false;
     private float waitTime = 0;
+
+    //States
+    public bool goingToEmergency;
+    public bool onEmergency;
+    public bool goingToERC;
+    public bool returnedToERC;
+    public bool free;
+
+    public void Start()
+    {
+        returnedToERC = true;
+        onEmergency = false;
+        goingToEmergency = false;
+        goingToERC = false;
+        free = true;
+    }
+
 
     public void SendAmbulance(Emergency em)
     {
         myEmergency = em;
+        free = false;
+        goingToEmergency = true;
     }
 
     void Update()
     {
-        if(!done && !onDestination)
+        if (!free)
         {
-            Move(myEmergency.gameObject);
-        }
-        else if(!done)
-        {
-            rb.velocity = Vector3.zero;
-            TreatEmergency();
-        }
-        else if(!onDestination)
-        {
-            Move(myERC.gameObject);
-        }
-        else
-        {
-            myERC.ReturnAmbulance();
-            Destroy(this.gameObject);
+            if (goingToEmergency)
+            {
+                Move(myEmergency.gameObject);
+            }
+
+            else if (onEmergency)
+            {
+                rb.velocity = Vector3.zero;
+                TreatEmergency();
+            }
+
+            else if (goingToERC)
+            {
+                Move(myERC.gameObject);
+            }
+
+            else if (returnedToERC)
+            {
+                myERC.ReturnAmbulance(this);
+                free = true;
+            }
         }
     }
 
@@ -51,16 +74,16 @@ public class Ambulance : Resource
 
         if (peopleToTransport == maxPeople)
         {
-            done = true;
-            onDestination = false;
+            onEmergency = false;
+            goingToERC = true;
             myEmergency.NAmbulances -= 1;
             return;
         }
 
         if (myEmergency.GetEmergencyPeopleEnvolved() < 1)
         {
-            done = true;
-            onDestination = false;
+            onEmergency = false;
+            goingToERC = true;
             myEmergency.NAmbulances -= 1;
             return;
         }
@@ -86,7 +109,16 @@ public class Ambulance : Resource
     {
         if (Vector3.Distance(target.transform.position, gameObject.transform.position) < epson)
         {
-            onDestination = true;
+            if (goingToEmergency)
+            {
+                goingToEmergency = false;
+                onEmergency = true;
+            }
+            else
+            {
+                goingToERC = false;
+                returnedToERC = true;
+            }
             return;
         }
 

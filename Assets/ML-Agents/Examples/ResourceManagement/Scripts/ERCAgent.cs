@@ -29,6 +29,9 @@ public class ERCAgent : MonoBehaviour
 
     private bool gameOver;
 
+    private List<Ambulance> ambulances;
+    private List<Firetruck> firetrucks;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,103 +44,80 @@ public class ERCAgent : MonoBehaviour
         availableAmbulances = nAmbulances;
         availableFiretrucks = nFiretruck;
         Physics.IgnoreLayerCollision(0, 9);
+        ambulances = new List<Ambulance>();
+        firetrucks = new List<Firetruck>();
+        for (int i = 0; i < nAmbulances; i++)
+        {
+            ambulances.Add(CreateAmbulance());
+        }
+        for (int i = 0; i < nFiretruck; i++)
+        {
+            firetrucks.Add(CreateFiretruck());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if (EmergenciesBeingTreated.Count > 0)
+        if (MedicalEmergenciesWaiting.Count > 0)
         {
-            Emergency em = EmergenciesBeingTreated[0];
+            Emergency em = MedicalEmergenciesWaiting[0];
 
-            if (em.GetEmergencyType() == Emergency.E_Type.Medical)
+            if (availableAmbulances > 0)
             {
-                if (availableAmbulances > 0)
+                int ambulancesNeeded = (int)Math.Ceiling((float)em.GetEmergencyPeopleEnvolved() / Ambulance.maxPeople);
+                ambulancesNeeded = Mathf.Min(ambulancesNeeded, availableAmbulances);
+
+
+                for (int i = 0; i < ambulancesNeeded; i++)
                 {
-                    int ambulancesNeeded = em.GetEmergencyPeopleEnvolved() / (Ambulance.maxPeople);
-                    ambulancesNeeded = Mathf.Min(ambulancesNeeded, availableAmbulances);
-
-                    for (int i = 0; i < ambulancesNeeded; i++)
-                    {
-                        Ambulance am = CreateAmbulance();
-                        am.SendAmbulance(em);
-                        availableAmbulances--;
-                    }
-
-                    EmergenciesWaiting.Remove(em);
-                    EmergenciesBeingTreated.Add(em);
-                }
-            }
-        }*/
-        //Se há emergencias por tratar
-
-        if (spawnInterval >= maxSpawnInterval)
-        {
-            if (MedicalEmergenciesWaiting.Count > 0)
-            {
-                Emergency em = MedicalEmergenciesWaiting[0];
-
-                if (availableAmbulances > 0)
-                {
-                    int ambulancesNeeded = (int)Math.Ceiling((float)em.GetEmergencyPeopleEnvolved() / Ambulance.maxPeople);
-                    ambulancesNeeded = Mathf.Min(ambulancesNeeded, availableAmbulances);
-
-
-                    for (int i = 0; i < ambulancesNeeded; i++)
-                    {
-                        Ambulance am = CreateAmbulance();
-                        am.SendAmbulance(em);
-                        availableAmbulances--;
-                    }
-
-                    em.SendResources(ambulancesNeeded, 0);
-                    MedicalEmergenciesWaiting.Remove(em);
-                    //EmergenciesBeingTreated.Add(em);
-                }
-            }
-
-            if (DisasterEmergenciesWaiting.Count > 0)
-            {
-                Emergency em = DisasterEmergenciesWaiting[0];
-
-                if (availableFiretrucks > 0)
-                {
-                    int firetrucksNeeded = (int)Math.Ceiling((float)em.GetEmergencyDisasterLife() / Firetruck.waterDeposit);
-                    firetrucksNeeded = Mathf.Min(firetrucksNeeded, availableFiretrucks);
-
-                    for (int i = 0; i < firetrucksNeeded; i++)
-                    {
-                        Firetruck am = CreateFiretruck();
-                        am.SendFiretruck(em);
-                        availableFiretrucks--;
-                    }
-
-                    em.SendResources(0, firetrucksNeeded);
-                    DisasterEmergenciesWaiting.Remove(em);
-                    //EmergenciesBeingTreated.Add(em);
+                    Ambulance am = ambulances[0]; //CreateAmbulance();
+                    am.SendAmbulance(em);
+                    availableAmbulances--;
+                    ambulances.RemoveAt(0);
                 }
 
+                em.SendResources(ambulancesNeeded, 0);
+                MedicalEmergenciesWaiting.Remove(em);
+                //EmergenciesBeingTreated.Add(em);
             }
-
-            spawnInterval = 0;
         }
 
-        else
+        if (DisasterEmergenciesWaiting.Count > 0)
         {
-            spawnInterval += Time.deltaTime;
-        }
+            Emergency em = DisasterEmergenciesWaiting[0];
 
-        
+            if (availableFiretrucks > 0)
+            {
+                int firetrucksNeeded = (int)Math.Ceiling((float)em.GetEmergencyDisasterLife() / Firetruck.waterDeposit);
+                firetrucksNeeded = Mathf.Min(firetrucksNeeded, availableFiretrucks);
+
+                for (int i = 0; i < firetrucksNeeded; i++)
+                {
+                    Firetruck am = firetrucks[0]; //CreateFiretruck();
+                    am.SendFiretruck(em);
+                    firetrucks.RemoveAt(0);
+                    availableFiretrucks--;
+                }
+
+                em.SendResources(0, firetrucksNeeded);
+                DisasterEmergenciesWaiting.Remove(em);
+                //EmergenciesBeingTreated.Add(em);
+            }
+
+        }
     }
 
-    public void ReturnAmbulance()
+    public void ReturnAmbulance(Ambulance a)
     {
         this.availableAmbulances++;
+        ambulances.Add(a);
     }
 
-    public void ReturnFiretruck()
+    public void ReturnFiretruck(Firetruck f)
     {
         this.availableFiretrucks++;
+        firetrucks.Add(f);
     }
 
     public void EmergencyCall(DisasterEmergency em)
