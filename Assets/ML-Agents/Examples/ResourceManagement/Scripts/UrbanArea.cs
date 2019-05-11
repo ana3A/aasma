@@ -10,6 +10,7 @@ public class UrbanArea : MonoBehaviour
     public GameObject EmergencyObject;
     public GameObject DisasterEmergencyObject;
     public GameObject MedicalEmergencyObject;
+    public GameObject BothEmergencyObject;
     //public int numBananas;
     public float range;
     public float TimeBetween;
@@ -97,15 +98,15 @@ public class UrbanArea : MonoBehaviour
             people_involved = Random.Range((int)1, (int)21);
             Etype = E_Type.Medical;
         }
-        else //if (type_probability <= 0.8f)
+        else if (type_probability <= 0.8f)
         {
             Etype = E_Type.Disaster;
         }
-        //else
-        //{
-        //    people_involved = Random.Range((int)1, (int)21);
-        //    Etype = Emergency.E_Type.Both;
-        //}
+        else
+        {
+            people_involved = Random.Range((int)1, (int)21);
+            Etype = E_Type.Both;
+        }
 
         float creation_probability = Random.Range(0.0f, 1.0f);
         if (creation_probability <= 0.6f)
@@ -148,9 +149,19 @@ public class UrbanArea : MonoBehaviour
             MyEmergencies.Add(em.gameObject.transform.position, em);
         }
 
-        
+        else if (Etype == E_Type.Both)
+        {
+            GameObject em = Instantiate(BothEmergencyObject, pos, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+            BothEmergency e = em.GetComponent<BothEmergency>();
+            e.InitEmergency(Eserv, people_involved, this);
+            MyERC.EmergencyCall(e);
+            //Notify Area that emergency exists
+            MyEmergencies.Add(em.gameObject.transform.position, em);
+        }
+
+
         //Notify ERC that an emergency occured -> simulating the "calls"
-        
+
     }
 
     private bool TooCloseToCentral(Vector3 pos) {
@@ -165,12 +176,12 @@ public class UrbanArea : MonoBehaviour
         MyERC.EmergencyEnded(em);
     }
 
-    public void RemoveEmergency(Emergency em, float successRate)
+    public void RemoveEmergency(Emergency em, int successRate)
     {
         atualEmergencies -= 1;
         if (successRate < 0.5)
         {
-            failures += 1;
+            failures +=1;
         }
         MyEmergencies.Remove(em.transform.position);
         MyERC.EmergencyEnded(em);
@@ -197,6 +208,17 @@ public class UrbanArea : MonoBehaviour
     {
         MyERC.EmergencyReOpen(em);
     }
+
+    public void ReOpenMedicalEmergency(BothEmergency em)
+    {
+        MyERC.ReOpenMedEmergency(em);
+    }
+
+    public void ReOpenDisasterEmergency(BothEmergency em)
+    {
+        MyERC.ReOpenDisEmergency(em);
+    }
+
 
     public void ResetUrbanArea()
     {

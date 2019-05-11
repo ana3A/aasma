@@ -7,12 +7,12 @@ using System;
 public class ERCAgent : MonoBehaviour
 {
     //public GameObject area;
-    public UrbanArea myArea;
+    //public UrbanArea myArea;
     public GameObject AmbulanceObject;
     public GameObject FiretruckObject;
     Rigidbody agentRb;
-    private List<MedicalEmergency> MedicalEmergenciesWaiting;
-    private List<DisasterEmergency> DisasterEmergenciesWaiting;
+    private List<Emergency> MedicalEmergenciesWaiting;
+    private List<Emergency> DisasterEmergenciesWaiting;
     private List<Emergency> EmergenciesBeingTreated;
     private Dictionary<Vector3, int> EmergencyIndex;
     [SerializeField]
@@ -35,8 +35,8 @@ public class ERCAgent : MonoBehaviour
         gameOver = false;
         EmComparor = new EmergencyComparor();
         EmergencyIndex = new Dictionary<Vector3, int>();
-        MedicalEmergenciesWaiting = new List<MedicalEmergency>();
-        DisasterEmergenciesWaiting = new List<DisasterEmergency>();
+        MedicalEmergenciesWaiting = new List<Emergency>();
+        DisasterEmergenciesWaiting = new List<Emergency>();
         EmergenciesBeingTreated = new List<Emergency>();
         availableAmbulances = nAmbulances;
         availableFiretrucks = nFiretruck;
@@ -75,7 +75,7 @@ public class ERCAgent : MonoBehaviour
         {
             if (MedicalEmergenciesWaiting.Count > 0)
             {
-                MedicalEmergency em = MedicalEmergenciesWaiting[0];
+                Emergency em = MedicalEmergenciesWaiting[0];
 
                 if (availableAmbulances > 0)
                 {
@@ -98,7 +98,7 @@ public class ERCAgent : MonoBehaviour
 
             if (DisasterEmergenciesWaiting.Count > 0)
             {
-                DisasterEmergency em = DisasterEmergenciesWaiting[0];
+                Emergency em = DisasterEmergenciesWaiting[0];
 
                 if (availableFiretrucks > 0)
                 {
@@ -152,6 +152,32 @@ public class ERCAgent : MonoBehaviour
         MedicalEmergenciesWaiting.Sort(EmComparor);
     }
 
+    public void EmergencyCall(BothEmergency em)
+    {
+        if (em.GetEmergencyPeopleEnvolved() > 0)
+        {
+            MedicalEmergenciesWaiting.Add(em);
+            MedicalEmergenciesWaiting.Sort(EmComparor);
+        }
+        if (em.GetEmergencyDisasterLife() > 0)
+        {
+            DisasterEmergenciesWaiting.Add(em);
+            DisasterEmergenciesWaiting.Sort(EmComparor);
+        }
+    }
+
+    public void EmergencyCallMed(BothEmergency em)
+    {
+        MedicalEmergenciesWaiting.Add(em);
+        MedicalEmergenciesWaiting.Sort(EmComparor);
+    }
+
+    public void EmergencyCallDis(BothEmergency em)
+    {
+        DisasterEmergenciesWaiting.Add(em);
+        DisasterEmergenciesWaiting.Sort(EmComparor);
+    }
+
     //public void EmergencyCall(BothEmergency em)
     //{
     //    if (em.GetEmergencyType() == Emergency.E_Type.Disaster)
@@ -197,11 +223,29 @@ public class ERCAgent : MonoBehaviour
         EmergencyCall(em);
     }
 
+    public void ReOpenDisEmergency(BothEmergency em)
+    {
+        //EmergenciesBeingTreated.Remove(em);
+        EmergencyCallDis(em);
+    }
+
+    public void ReOpenMedEmergency(BothEmergency em)
+    {
+        //EmergenciesBeingTreated.Remove(em);
+        EmergencyCallMed(em);
+    }
+
+    public void EmergencyReOpen(BothEmergency em)
+    {
+        //EmergenciesBeingTreated.Remove(em);
+        EmergencyCall(em);
+    }
+
     private Ambulance CreateAmbulance()
     {
         Vector3 pos = this.transform.position;
         pos.y = 1;
-        GameObject am = Instantiate(AmbulanceObject, pos, Quaternion.identity);
+        GameObject am = Instantiate(AmbulanceObject, pos, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
         Ambulance a = am.GetComponent<Ambulance>();
         a.myERC = this;
         return a;

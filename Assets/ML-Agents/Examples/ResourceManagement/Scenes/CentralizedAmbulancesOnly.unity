@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -223,11 +223,13 @@ MonoBehaviour:
     type: 3}
   MedicalEmergencyObject: {fileID: 6630905368245998450, guid: 2a89647936e1571408fa4eda628f96f2,
     type: 3}
+  BothEmergencyObject: {fileID: 6630905368245998450, guid: c94363c2bbc6b7d48b5dbf3868f567e7,
+    type: 3}
   range: 48
   TimeBetween: 0.1
   MyERC: {fileID: 1430582808}
   atualEmergencies: 0
-  maxEmergencies: 15
+  maxEmergencies: 25
   allPeople: 0
   peopleSaved: 0
   peopleNotSaved: 0
@@ -389,26 +391,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 43.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 7769501244804709029, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 126
-      objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nAmbulances
@@ -430,6 +412,26 @@ PrefabInstance:
       propertyPath: gameOverText
       value: 
       objectReference: {fileID: 1663900144}
+    - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 43.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 7769501244804709029, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
 --- !u!1 &1268393685

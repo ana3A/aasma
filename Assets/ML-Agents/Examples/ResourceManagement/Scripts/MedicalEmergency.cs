@@ -8,7 +8,7 @@ public class MedicalEmergency : Emergency
     public int NPeopleInvolved;
     public int totalPeople;
     public int savedPeople;
-    public float successRate;
+    public int successRate;
     private float SalvationProb;
 
     public void InitEmergency(E_Severity severity, int peopleInvolved, UrbanArea area)
@@ -129,7 +129,7 @@ public class MedicalEmergency : Emergency
         }
     }
 
-    public override bool TreatEmergency()
+    public override bool TreatEmergency(Ambulance a)
     {
         float salvationProb = UnityEngine.Random.Range(0f, 1f);
         if (salvationProb <= this.SalvationProb)

@@ -33,7 +33,7 @@ public class DisasterEmergency : Emergency
             SetEmergencySeverity(severity);
             DevastationLife = LightDevastationLife;
             regainEnergyPercentage = LightRegainEnergyPercentage;
-            MyMaterial.color = new Color(255f/255f, 220f/255f, 46f/255f);
+            MyMaterial.color = new Color(255f / 255f, 220f / 255f, 46f / 255f);
             AffectedArea = LightDevastationLife;
 
         }
@@ -43,7 +43,7 @@ public class DisasterEmergency : Emergency
             SetEmergencySeverity(severity);
             DevastationLife = MediumDevastationLife;
             regainEnergyPercentage = MediumRegainEnergyPercentage;
-            MyMaterial.color = new Color(219f/255f, 69f/255f, 0f);
+            MyMaterial.color = new Color(219f / 255f, 69f / 255f, 0f);
             AffectedArea = MediumDevastationLife;
         }
         else
@@ -82,7 +82,7 @@ public class DisasterEmergency : Emergency
         this.NFiretrucks = firetrucks;
     }
 
-    public override bool TreatEmergency()
+    public override bool TreatEmergency(Firetruck f)
     {
         DevastationLife -= Firetruck.damage;
         return true;
@@ -104,10 +104,9 @@ public class DisasterEmergency : Emergency
         Duration += Time.deltaTime;
         if (this.DevastationLife <= 0)
         {
-            MyArea.RemoveEmergency(this, InitialAffectedArea / AffectedArea);
+            MyArea.RemoveEmergency(this);
             Destroy(this.gameObject);
         }
-
         else
         {
 

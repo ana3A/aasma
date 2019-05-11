@@ -68,7 +68,7 @@ public class Ambulance : Resource
 
         if (waitTime >= myEmergency.WaitTime)
         {
-            if(myEmergency.TreatEmergency())
+            if(myEmergency.TreatEmergency(this))
             {
                 peopleToTransport++;
             }
@@ -96,9 +96,9 @@ public class Ambulance : Resource
 
         //rb.position = new Vector3
         //(
-        //    Mathf.Clamp(rb.position.x, myERC.myArea.transform.position.x - boundary.xMin, myERC.myArea.transform.position.x + boundary.xMax),
+        //    Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
         //    1.0f,
-        //    Mathf.Clamp(rb.position.z, myERC.myArea.transform.position.z - boundary.zMin, myERC.myArea.transform.position.z + boundary.zMax)
+        //    Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
         //);
     }
 

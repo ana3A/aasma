@@ -74,7 +74,12 @@ public class Emergency : MonoBehaviour
 
     }
 
-    public virtual bool TreatEmergency()
+    public virtual bool TreatEmergency(Ambulance a)
+    {
+        return false;
+    }
+
+    public virtual bool TreatEmergency(Firetruck f)
     {
         return false;
     }
