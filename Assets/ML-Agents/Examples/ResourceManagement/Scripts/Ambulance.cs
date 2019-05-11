@@ -84,22 +84,22 @@ public class Ambulance : Resource
 
     private void Move(GameObject target)
     {
-        if (Vector3.Distance(target.transform.localPosition, gameObject.transform.localPosition) < epson)
+        if (Vector3.Distance(target.transform.position, gameObject.transform.position) < epson)
         {
             onDestination = true;
             return;
         }
 
-        Vector3 movement = target.transform.localPosition - gameObject.transform.localPosition;
+        Vector3 movement = target.transform.position - gameObject.transform.position;
 
         rb.velocity = movement * speed;
 
-        rb.position = new Vector3
-        (
-            Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax),
-            1.0f,
-            Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
-        );
+        //rb.position = new Vector3
+        //(
+        //    Mathf.Clamp(rb.position.x, myERC.myArea.transform.position.x - boundary.xMin, myERC.myArea.transform.position.x + boundary.xMax),
+        //    1.0f,
+        //    Mathf.Clamp(rb.position.z, myERC.myArea.transform.position.z - boundary.zMin, myERC.myArea.transform.position.z + boundary.zMax)
+        //);
     }
 
 }

@@ -15,11 +15,15 @@ public class DisasterEmergency : Emergency
     public float MediumRegainEnergyPercentage;
     public float SevereRegainEnergyPercentage;
 
+    private float AffectedArea;
+    private float InitialAffectedArea;
+
     public void InitEmergency(E_Severity severity, int peopleInvolved, UrbanArea area)
     {
         base.InitEmergency(area, severity, this.GetComponent<Renderer>().material);
 
         NewSeverity(severity);
+        InitialAffectedArea = AffectedArea;
     }
 
     public override void NewSeverity(E_Severity severity)
@@ -30,6 +34,8 @@ public class DisasterEmergency : Emergency
             DevastationLife = LightDevastationLife;
             regainEnergyPercentage = LightRegainEnergyPercentage;
             MyMaterial.color = new Color(255f/255f, 220f/255f, 46f/255f);
+            AffectedArea = LightDevastationLife;
+
         }
 
         else if (severity == E_Severity.Medium)
@@ -38,6 +44,7 @@ public class DisasterEmergency : Emergency
             DevastationLife = MediumDevastationLife;
             regainEnergyPercentage = MediumRegainEnergyPercentage;
             MyMaterial.color = new Color(219f/255f, 69f/255f, 0f);
+            AffectedArea = MediumDevastationLife;
         }
         else
         {
@@ -45,6 +52,7 @@ public class DisasterEmergency : Emergency
             DevastationLife = SevereDevastationLife;
             regainEnergyPercentage = SevereRegainEnergyPercentage;
             MyMaterial.color = new Color(1f, 0f, 0f);
+            AffectedArea = SevereDevastationLife;
         }
     }
 
@@ -57,6 +65,7 @@ public class DisasterEmergency : Emergency
             regainEnergyPercentage = MediumRegainEnergyPercentage;
             DevastationLife += DevastationLife * 0.25f;
             MyMaterial.color = new Color(219f / 255f, 69f / 255f, 0f);
+            AffectedArea = DevastationLife;
         }
         else
         {
@@ -64,6 +73,7 @@ public class DisasterEmergency : Emergency
             regainEnergyPercentage = SevereRegainEnergyPercentage;
             DevastationLife += DevastationLife * 0.5f;
             MyMaterial.color = new Color(1f, 0f, 0f);
+            AffectedArea = DevastationLife;
         }
     }
 
@@ -94,15 +104,22 @@ public class DisasterEmergency : Emergency
         Duration += Time.deltaTime;
         if (this.DevastationLife <= 0)
         {
-            MyArea.RemoveEmergency(this);
+            MyArea.RemoveEmergency(this, InitialAffectedArea / AffectedArea);
             Destroy(this.gameObject);
         }
+
         else
         {
 
             DevastationLife += regainEnergyPercentage * DevastationLife;
 
             IncreaseSeverity();
+
+            var p = UnityEngine.Random.Range(0f, 1f);
+            if (p < 0.1)
+            {
+                AffectedArea += regainEnergyPercentage * AffectedArea;
+            }
 
             if (this.NFiretrucks == 0)
             {

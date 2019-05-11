@@ -8,7 +8,7 @@ public class MedicalEmergency : Emergency
     public int NPeopleInvolved;
     public int totalPeople;
     public int savedPeople;
-    public int successRate;
+    public float successRate;
     private float SalvationProb;
 
     public void InitEmergency(E_Severity severity, int peopleInvolved, UrbanArea area)

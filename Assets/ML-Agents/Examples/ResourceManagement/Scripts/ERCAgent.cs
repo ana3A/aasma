@@ -7,7 +7,7 @@ using System;
 public class ERCAgent : MonoBehaviour
 {
     //public GameObject area;
-    //public UrbanArea myArea;
+    public UrbanArea myArea;
     public GameObject AmbulanceObject;
     public GameObject FiretruckObject;
     Rigidbody agentRb;
@@ -199,9 +199,9 @@ public class ERCAgent : MonoBehaviour
 
     private Ambulance CreateAmbulance()
     {
-        Vector3 pos = this.transform.localPosition;
+        Vector3 pos = this.transform.position;
         pos.y = 1;
-        GameObject am = Instantiate(AmbulanceObject, pos, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+        GameObject am = Instantiate(AmbulanceObject, pos, Quaternion.identity);
         Ambulance a = am.GetComponent<Ambulance>();
         a.myERC = this;
         return a;
@@ -209,7 +209,7 @@ public class ERCAgent : MonoBehaviour
 
     private Firetruck CreateFiretruck()
     {
-        Vector3 pos = this.transform.localPosition;
+        Vector3 pos = this.transform.position;
         pos.y = 1;
         GameObject ft = Instantiate(FiretruckObject, pos, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
         Firetruck f = ft.GetComponent<Firetruck>();

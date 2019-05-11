@@ -135,7 +135,7 @@ public class UrbanArea : MonoBehaviour
             e.InitEmergency(Eserv, people_involved, this);
             MyERC.EmergencyCall(e);
             //Notify Area that emergency exists
-            MyEmergencies.Add(em.gameObject.transform.localPosition, em);
+            MyEmergencies.Add(em.gameObject.transform.position, em);
         }
 
         else if (Etype == E_Type.Disaster)
@@ -145,7 +145,7 @@ public class UrbanArea : MonoBehaviour
             e.InitEmergency(Eserv, people_involved, this);
             MyERC.EmergencyCall(e);
             //Notify Area that emergency exists
-            MyEmergencies.Add(em.gameObject.transform.localPosition, em);
+            MyEmergencies.Add(em.gameObject.transform.position, em);
         }
 
         
@@ -154,25 +154,25 @@ public class UrbanArea : MonoBehaviour
     }
 
     private bool TooCloseToCentral(Vector3 pos) {
-        if (Vector3.Distance(pos, MyERC.transform.localPosition) < 5)
+        if (Vector3.Distance(pos, MyERC.transform.position) < 5)
             return true;
         return false;
     }
     public void RemoveEmergency(Emergency em)
     {
         atualEmergencies -= 1;
-        MyEmergencies.Remove(em.transform.localPosition);
+        MyEmergencies.Remove(em.transform.position);
         MyERC.EmergencyEnded(em);
     }
 
-    public void RemoveEmergency(Emergency em, int successRate)
+    public void RemoveEmergency(Emergency em, float successRate)
     {
         atualEmergencies -= 1;
         if (successRate < 0.5)
         {
-            failures +=1;
+            failures += 1;
         }
-        MyEmergencies.Remove(em.transform.localPosition);
+        MyEmergencies.Remove(em.transform.position);
         MyERC.EmergencyEnded(em);
     }
 
