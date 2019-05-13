@@ -93,12 +93,20 @@ public class BothEmergency : Emergency
     {
         if (firetrucks != 0)
         {
-            this.NFiretrucks = firetrucks;
+            if (NFiretrucks == -1)
+            {
+                this.NFiretrucks = firetrucks;
+            }
+            else NFiretrucks += firetrucks;
         }
 
         if (ambulances != 0)
         {
-            this.NAmbulances = ambulances;
+            if (NAmbulances == -1)
+            {
+                this.NAmbulances = ambulances;
+            }
+            else NAmbulances += ambulances;
         }
     }
 
@@ -200,5 +208,15 @@ public class BothEmergency : Emergency
             IncreaseSeverity();
         }
 
+    }
+
+    public override int NeededAmbulances()
+    {
+        return NPeopleInvolved - Math.Max(0, NAmbulances) * 2;
+    }
+
+    public override int NeededFiretrucks()
+    {
+        return (int)Math.Ceiling((DevastationLife - Math.Max(0, NFiretrucks) * Firetruck.waterDeposit) / Firetruck.waterDeposit);
     }
 }

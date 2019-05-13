@@ -69,7 +69,6 @@ public class Ambulance : Resource
             myERC.MedicalEmergencyControlled(myEmergency);
         }
     }
-
     
 
     private void DealWithEmergency()

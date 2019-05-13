@@ -67,13 +67,14 @@ public class Firetruck : Resource
     {
         SendFiretruck(myERC.WorstDisasterEmergency());
         myERC.SendFiretruck(this);
-        myEmergency.SendResources(1, 0);
+        myEmergency.SendResources(0, 1);
 
         if (myEmergency.NeededFiretrucks() < 1)
         {
             myERC.DisasterEmergencyControlled(myEmergency);
         }
     }
+
 
     private void DealWithEmergency()
     {
