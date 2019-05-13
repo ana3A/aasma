@@ -14,7 +14,7 @@ public class Firetruck : Resource
     public Rigidbody rb;
     public float maxWaitTime = 5;
     private Emergency myEmergency;
-    private float epson = 3f;
+    private float epsilon = 3f;
     private float waitTime = 0;
     static public int damage = 3;
     static public float waterDeposit = 30;
@@ -26,6 +26,8 @@ public class Firetruck : Resource
     public bool goingToERC;
     public bool returnedToERC;
     public bool free;
+
+    public bool Decentralized { get; set; }
 
     public void SendFiretruck(Emergency em)
     {
@@ -49,28 +51,60 @@ public class Firetruck : Resource
     {
         if (!free)
         {
-            if (goingToEmergency)
-            {
-                Move(myEmergency.gameObject);
-            }
+            DealWithEmergency();
+        }
 
-            else if (onEmergency)
+        else if (Decentralized)
+        {
+            if (myERC.TheresDisasterEmergency())
             {
-                rb.velocity = Vector3.zero;
-                TreatEmergency();
-            }
-
-            else if (goingToERC)
-            {
-                Move(myERC.gameObject);
-            }
-
-            else if (returnedToERC)
-            {
-                myERC.ReturnFiretruck(this);
-                free = true;
+                AssumeEmergency();
             }
         }
+    }
+
+    public void AssumeEmergency()
+    {
+        SendFiretruck(myERC.WorstDisasterEmergency());
+        myERC.SendFiretruck(this);
+        myEmergency.SendResources(1, 0);
+
+        if (myEmergency.NeededFiretrucks() < 1)
+        {
+            myERC.DisasterEmergencyControlled(myEmergency);
+        }
+    }
+
+    private void DealWithEmergency()
+    {
+        if (goingToEmergency)
+        {
+            Move(myEmergency.gameObject);
+        }
+
+        else if (onEmergency)
+        {
+            rb.velocity = Vector3.zero;
+            TreatEmergency();
+        }
+
+        else if (goingToERC)
+        {
+            Move(myERC.gameObject);
+        }
+
+        else if (returnedToERC)
+        {
+            ReturnFiretruck();
+        }
+    }
+
+    private void ReturnFiretruck()
+    {
+        myERC.ReturnFiretruck(this);
+        free = true;
+        returnedToERC = false;
+        curWaterDeposit = waterDeposit;
     }
 
     private void TreatEmergency()
@@ -111,7 +145,7 @@ public class Firetruck : Resource
 
     private void Move(GameObject target)
     {
-        if (Vector3.Distance(target.transform.position, gameObject.transform.position) < epson)
+        if (Vector3.Distance(target.transform.position, gameObject.transform.position) < epsilon)
         {
             if (goingToEmergency)
             {

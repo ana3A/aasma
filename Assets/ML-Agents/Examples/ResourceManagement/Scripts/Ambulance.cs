@@ -13,7 +13,7 @@ public class Ambulance : Resource
     public Rigidbody rb;
     public float maxWaitTime = 5;
     private Emergency myEmergency;
-    private float epson = 3f;
+    private float epsilon = 3f;
     private int peopleToTransport = 0;
     private float waitTime = 0;
 
@@ -24,6 +24,8 @@ public class Ambulance : Resource
     public bool returnedToERC;
     public bool free;
 
+    public bool Decentralized { get; set; }
+
     public void Start()
     {
         returnedToERC = true;
@@ -33,6 +35,21 @@ public class Ambulance : Resource
         free = true;
     }
 
+    void Update()
+    {
+        if (!free)
+        {
+            DealWithEmergency();
+        }
+
+        else if (Decentralized)
+        {
+            if (myERC.TheresMedicalEmergency())
+            {
+                AssumeEmergency();
+            }
+        }
+    }
 
     public void SendAmbulance(Emergency em)
     {
@@ -41,32 +58,50 @@ public class Ambulance : Resource
         goingToEmergency = true;
     }
 
-    void Update()
+    public void AssumeEmergency()
     {
-        if (!free)
+        SendAmbulance(myERC.WorstMedicalEmergency());
+        myERC.SendAmbulance(this);
+        myEmergency.SendResources(1, 0);
+
+        if (myEmergency.NeededAmbulances() < 1)
         {
-            if (goingToEmergency)
-            {
-                Move(myEmergency.gameObject);
-            }
-
-            else if (onEmergency)
-            {
-                rb.velocity = Vector3.zero;
-                TreatEmergency();
-            }
-
-            else if (goingToERC)
-            {
-                Move(myERC.gameObject);
-            }
-
-            else if (returnedToERC)
-            {
-                myERC.ReturnAmbulance(this);
-                free = true;
-            }
+            myERC.MedicalEmergencyControlled(myEmergency);
         }
+    }
+
+    
+
+    private void DealWithEmergency()
+    {
+        if (goingToEmergency)
+        {
+            Move(myEmergency.gameObject);
+        }
+
+        else if (onEmergency)
+        {
+            rb.velocity = Vector3.zero;
+            TreatEmergency();
+        }
+
+        else if (goingToERC)
+        {
+            Move(myERC.gameObject);
+        }
+
+        else if (returnedToERC)
+        {
+            ReturnAmbulance();
+        }
+    }
+
+    private void ReturnAmbulance()
+    {
+        myERC.ReturnAmbulance(this);
+        free = true;
+        returnedToERC = false;
+        peopleToTransport = 0;
     }
 
     private void TreatEmergency()
@@ -107,7 +142,7 @@ public class Ambulance : Resource
 
     private void Move(GameObject target)
     {
-        if (Vector3.Distance(target.transform.position, gameObject.transform.position) < epson)
+        if (Vector3.Distance(target.transform.position, gameObject.transform.position) < epsilon)
         {
             if (goingToEmergency)
             {

@@ -79,7 +79,9 @@ public class DisasterEmergency : Emergency
 
     public override void SendResources(int ambulances, int firetrucks)
     {
-        this.NFiretrucks = firetrucks;
+        if (NFiretrucks == -1)
+            this.NFiretrucks = firetrucks;
+        else NFiretrucks += firetrucks;
     }
 
     public override bool TreatEmergency(Firetruck f)
@@ -127,5 +129,10 @@ public class DisasterEmergency : Emergency
             }
 
         }
+    }
+
+    public override int NeededFiretrucks()
+    {
+        return (int) Math.Ceiling((DevastationLife - Math.Max(0, NFiretrucks) * Firetruck.waterDeposit) / Firetruck.waterDeposit);
     }
 }

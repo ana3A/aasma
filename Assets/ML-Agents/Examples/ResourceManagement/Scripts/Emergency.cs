@@ -133,4 +133,14 @@ public class Emergency : MonoBehaviour
 
         }
     }
+
+    public virtual int NeededAmbulances()
+    {
+        return 0;
+    }
+
+    public virtual int NeededFiretrucks()
+    {
+        return 0;
+    }
 }

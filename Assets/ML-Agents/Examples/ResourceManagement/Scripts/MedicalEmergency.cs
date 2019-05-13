@@ -91,7 +91,11 @@ public class MedicalEmergency : Emergency
 
     public override void SendResources(int a, int f)
     {
-        this.NAmbulances = a;
+        if (NAmbulances == -1)
+        {
+            this.NAmbulances = a;
+        }
+        else NAmbulances += a;
     }
 
     public override void NewSeverity(E_Severity severity)
@@ -146,4 +150,8 @@ public class MedicalEmergency : Emergency
         return false;
     }
 
+    public override int NeededAmbulances()
+    {
+        return NPeopleInvolved - Math.Max(0, NAmbulances) * 2;
+    }
 }

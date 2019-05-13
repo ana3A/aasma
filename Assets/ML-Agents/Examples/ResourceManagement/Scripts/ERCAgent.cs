@@ -32,6 +32,8 @@ public class ERCAgent : MonoBehaviour
     private List<Ambulance> ambulances;
     private List<Firetruck> firetrucks;
 
+    public bool Decentralized;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,51 +61,69 @@ public class ERCAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MedicalEmergenciesWaiting.Count > 0)
+        if (!Decentralized)
         {
-            Emergency em = MedicalEmergenciesWaiting[0];
-
-            if (availableAmbulances > 0)
+            if (spawnInterval >= maxSpawnInterval)
             {
-                int ambulancesNeeded = (int)Math.Ceiling((float)em.GetEmergencyPeopleEnvolved() / Ambulance.maxPeople);
-                ambulancesNeeded = Mathf.Min(ambulancesNeeded, availableAmbulances);
-
-
-                for (int i = 0; i < ambulancesNeeded; i++)
+                if (MedicalEmergenciesWaiting.Count > 0)
                 {
-                    Ambulance am = ambulances[0]; //CreateAmbulance();
-                    am.SendAmbulance(em);
-                    availableAmbulances--;
-                    ambulances.RemoveAt(0);
+                    Emergency em = MedicalEmergenciesWaiting[0];
+
+                    if (availableAmbulances > 0)
+                    {
+                        int ambulancesNeeded = (int)Math.Ceiling((float)em.GetEmergencyPeopleEnvolved() / Ambulance.maxPeople);
+                        ambulancesNeeded = Mathf.Min(ambulancesNeeded, availableAmbulances);
+
+
+                        for (int i = 0; i < ambulancesNeeded; i++)
+                        {
+                            Ambulance am = ambulances[0]; // CreateAmbulance();
+                            ambulances.RemoveAt(0);
+                            am.SendAmbulance(em);
+                            availableAmbulances--;
+                        }
+
+                        em.SendResources(ambulancesNeeded, 0);
+                        MedicalEmergenciesWaiting.Remove(em);
+                        //EmergenciesBeingTreated.Add(em);
+                    }
                 }
 
-                em.SendResources(ambulancesNeeded, 0);
-                MedicalEmergenciesWaiting.Remove(em);
-                //EmergenciesBeingTreated.Add(em);
+                if (DisasterEmergenciesWaiting.Count > 0)
+                {
+                    Emergency em = DisasterEmergenciesWaiting[0];
+
+                    if (availableFiretrucks > 0)
+                    {
+                        int firetrucksNeeded = (int)Math.Ceiling((float)em.GetEmergencyDisasterLife() / Firetruck.waterDeposit);
+                        firetrucksNeeded = Mathf.Min(firetrucksNeeded, availableFiretrucks);
+
+                        for (int i = 0; i < firetrucksNeeded; i++)
+                        {
+                            Firetruck am = firetrucks[0]; // CreateFiretruck();
+                            firetrucks.RemoveAt(0);
+                            am.SendFiretruck(em);
+                            availableFiretrucks--;
+                        }
+
+                        em.SendResources(0, firetrucksNeeded);
+                        DisasterEmergenciesWaiting.Remove(em);
+                        //EmergenciesBeingTreated.Add(em);
+                    }
+
+                }
+
+                spawnInterval = 0;
+            }
+
+            else
+            {
+                spawnInterval += Time.deltaTime;
             }
         }
 
-        if (DisasterEmergenciesWaiting.Count > 0)
+        else
         {
-            Emergency em = DisasterEmergenciesWaiting[0];
-
-            if (availableFiretrucks > 0)
-            {
-                int firetrucksNeeded = (int)Math.Ceiling((float)em.GetEmergencyDisasterLife() / Firetruck.waterDeposit);
-                firetrucksNeeded = Mathf.Min(firetrucksNeeded, availableFiretrucks);
-
-                for (int i = 0; i < firetrucksNeeded; i++)
-                {
-                    Firetruck am = firetrucks[0]; //CreateFiretruck();
-                    am.SendFiretruck(em);
-                    firetrucks.RemoveAt(0);
-                    availableFiretrucks--;
-                }
-
-                em.SendResources(0, firetrucksNeeded);
-                DisasterEmergenciesWaiting.Remove(em);
-                //EmergenciesBeingTreated.Add(em);
-            }
 
         }
     }
@@ -112,12 +132,26 @@ public class ERCAgent : MonoBehaviour
     {
         this.availableAmbulances++;
         ambulances.Add(a);
+
     }
 
     public void ReturnFiretruck(Firetruck f)
     {
         this.availableFiretrucks++;
         firetrucks.Add(f);
+    }
+
+    public void SendAmbulance(Ambulance a)
+    {
+        this.availableAmbulances--;
+        ambulances.Remove(a);
+
+    }
+
+    public void SendFiretruck(Firetruck f)
+    {
+        this.availableFiretrucks--;
+        firetrucks.Remove(f); ;
     }
 
     public void EmergencyCall(DisasterEmergency em)
@@ -185,6 +219,16 @@ public class ERCAgent : MonoBehaviour
         EmergenciesBeingTreated.Remove(em);
     }
 
+    public void MedicalEmergencyControlled(Emergency em)
+    {
+        MedicalEmergenciesWaiting.Remove(em);
+    }
+
+    public void DisasterEmergencyControlled(Emergency em)
+    {
+        DisasterEmergenciesWaiting.Remove(em);
+    }
+
     //public void EmergencyReOpen(Emergency em)
     //{
     //    EmergenciesBeingTreated.Remove(em);
@@ -228,6 +272,7 @@ public class ERCAgent : MonoBehaviour
         GameObject am = Instantiate(AmbulanceObject, pos, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
         Ambulance a = am.GetComponent<Ambulance>();
         a.myERC = this;
+        a.Decentralized = Decentralized;
         return a;
     }
 
@@ -238,6 +283,7 @@ public class ERCAgent : MonoBehaviour
         GameObject ft = Instantiate(FiretruckObject, pos, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
         Firetruck f = ft.GetComponent<Firetruck>();
         f.myERC = this;
+        f.Decentralized = Decentralized;
         return f;
     }
 
@@ -246,11 +292,29 @@ public class ERCAgent : MonoBehaviour
         return gameOver;
     }
 
-    public void SimulationFailed ()
+    public void SimulationFailed()
     {
         gameOver = true;
     }
 
+    public bool TheresMedicalEmergency()
+    {
+        return MedicalEmergenciesWaiting.Count > 0;
+    }
 
+    public bool TheresDisasterEmergency()
+    {
+        return DisasterEmergenciesWaiting.Count > 0;
+    }
+
+    public Emergency WorstMedicalEmergency()
+    {
+        return MedicalEmergenciesWaiting[0];
+    }
+
+    public Emergency WorstDisasterEmergency()
+    {
+        return DisasterEmergenciesWaiting[0];
+    }
 
 }

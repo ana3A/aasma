@@ -17,6 +17,7 @@ public class UrbanArea : MonoBehaviour
     public ERCAgent MyERC;
     public int atualEmergencies = 0;
     public int maxEmergencies = 15;
+    public int maxFailures = 20;
 
     public int allPeople = 0;
     public int peopleSaved = 0;
@@ -25,7 +26,7 @@ public class UrbanArea : MonoBehaviour
     public Text restartText;
     private bool restart;
     public Text gameOverText;
-    private bool gameOver;    
+    //private bool gameOver;    
 
     enum E_Type { Medical, Disaster, Both}
 
@@ -35,7 +36,7 @@ public class UrbanArea : MonoBehaviour
     {
         while (true)
         {
-            if (MyERC.getGameOver() || gameOver || (failures > 20))
+            if (MyERC.getGameOver() || (failures > maxFailures))
             {
                 gameOverText.text = "Simulation Failed!";
                 restartText.text = "Press 'R' for Restart";
@@ -45,10 +46,10 @@ public class UrbanArea : MonoBehaviour
 
             yield return new WaitForSeconds(waitTime);
             
-            if (atualEmergencies == maxEmergencies)
-            {
-                gameOver = true;
-            }
+            //if (atualEmergencies == maxEmergencies)
+            //{
+            //    gameOver = true;
+            //}
 
             if (atualEmergencies < maxEmergencies)
             {
@@ -68,7 +69,7 @@ public class UrbanArea : MonoBehaviour
         restart = false;
         restartText.text = "";
         gameOverText.text = "";
-        gameOver = false;
+        //gameOver = false;
         MyEmergencies = new Dictionary<Vector3, GameObject>();
         var coroutine = MakeEmergenciesOccur(TimeBetween);
         StartCoroutine(coroutine);
