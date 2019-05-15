@@ -100,6 +100,10 @@ public class Ambulance : Resource
         myERC.ReturnAmbulance(this);
         free = true;
         returnedToERC = false;
+        if (peopleToTransport == 0)
+        {
+            myERC.wastedAmbulances += 1;
+        }
         peopleToTransport = 0;
     }
 

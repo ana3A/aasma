@@ -108,7 +108,7 @@ public class DisasterEmergency : Emergency
     new void Update()
     {
         Duration += Time.deltaTime;
-        if (this.DevastationLife <= 0)
+        if (this.DevastationLife <= 0 && NFiretrucks == 0)
         {
             MyArea.RemoveEmergency(this);
             Destroy(this.gameObject);

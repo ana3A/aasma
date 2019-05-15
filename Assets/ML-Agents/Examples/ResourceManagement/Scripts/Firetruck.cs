@@ -105,6 +105,10 @@ public class Firetruck : Resource
         myERC.ReturnFiretruck(this);
         free = true;
         returnedToERC = false;
+        if (curWaterDeposit == waterDeposit)
+        {
+            myERC.wastedFiretrucks += 1;
+        }
         curWaterDeposit = waterDeposit;
     }
 

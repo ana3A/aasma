@@ -38,6 +38,12 @@ public class ERCAgent : MonoBehaviour
 
     public bool Decentralized;
 
+    public bool Multiple;
+    public CommsSystem CommunicationSystem;
+
+    public int wastedAmbulances;
+    public int wastedFiretrucks;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +55,8 @@ public class ERCAgent : MonoBehaviour
         EmergenciesBeingTreated = new List<Emergency>();
         availableAmbulances = nAmbulances;
         availableFiretrucks = nFiretruck;
+        wastedAmbulances = 0;
+        wastedFiretrucks = 0;
         Physics.IgnoreLayerCollision(0, 9);
         ambulances = new List<Ambulance>();
         firetrucks = new List<Firetruck>();
@@ -143,9 +151,19 @@ public class ERCAgent : MonoBehaviour
                     {
                         Emergency em = MedicalEmergenciesWaiting[0];
 
-                        if (availableAmbulances > 0)
+                        if (availableAmbulances > 0 || Multiple)
                         {
                             int ambulancesNeeded = (int)Math.Ceiling((float)em.GetEmergencyPeopleEnvolved() / Ambulance.maxPeople);
+                            
+                            if (Multiple)
+                            {
+                                int ambulancesRemaining = Mathf.Max(ambulancesNeeded-availableAmbulances, 0);
+                                if (ambulancesRemaining > 0 )
+                                {
+                                    CommunicationSystem.needMedHelp(em, ambulancesRemaining);
+                                }
+                            }
+                            
                             ambulancesNeeded = Mathf.Min(ambulancesNeeded, availableAmbulances);
 
 
@@ -167,9 +185,19 @@ public class ERCAgent : MonoBehaviour
                     {
                         Emergency em = DisasterEmergenciesWaiting[0];
 
-                        if (availableFiretrucks > 0)
+                        if (availableFiretrucks > 0 || Multiple)
                         {
                             int firetrucksNeeded = (int)Math.Ceiling((float)em.GetEmergencyDisasterLife() / Firetruck.waterDeposit);
+                            
+                            if (Multiple)
+                            {
+                                int firetrucksRemaining = Mathf.Max(firetrucksNeeded-availableFiretrucks, 0);
+                                if (firetrucksRemaining > 0 )
+                                {
+                                    CommunicationSystem.needFireHelp(em, firetrucksRemaining);
+                                }
+                            }
+
                             firetrucksNeeded = Mathf.Min(firetrucksNeeded, availableFiretrucks);
 
                             for (int i = 0; i < firetrucksNeeded; i++)
@@ -193,6 +221,41 @@ public class ERCAgent : MonoBehaviour
                 else
                 {
                     spawnInterval += Time.deltaTime;
+                }
+
+                if (Multiple)
+                {
+                    if(availableAmbulances > (nAmbulances/2))
+                    {
+                        Emergency emh;
+                        bool helping;
+                        CommunicationSystem.checkMedHelps(this, out helping, out emh);
+                        if(helping)
+                        {
+                            Debug.Log(this+ "borrowed ambulance to" + emh.MyArea);
+                            Ambulance am = ambulances[0];
+                            ambulances.RemoveAt(0);
+                            am.SendAmbulance(emh);
+                            availableAmbulances--;
+                            emh.SendResources(1, 0);
+                        }
+                    }
+                
+                    if(availableFiretrucks > (nFiretruck/2))
+                    {
+                        Emergency emh;
+                        bool helping;
+                        CommunicationSystem.checkFireHelps(this, out helping, out emh);
+                        if(helping)
+                        {
+                            Debug.Log(this+ "borrowed firetruck to" + emh.MyArea);
+                            Firetruck am = firetrucks[0];
+                            firetrucks.RemoveAt(0);
+                            am.SendFiretruck(emh);
+                            availableFiretrucks--;
+                            emh.SendResources(0, 1);
+                        }
+                    }
                 }
             }
 

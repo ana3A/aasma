@@ -178,7 +178,7 @@ public class BothEmergency : Emergency
     {
         Duration += Time.deltaTime;
 
-        if (this.NPeopleInvolved <= 0 && this.DevastationLife <= 0)
+        if (this.NPeopleInvolved <= 0 && this.DevastationLife <= 0 && this.NAmbulances == 0 && this.NFiretrucks == 0)
         {
             //notify area +central
             MyArea.RemoveEmergency(this, successRate);

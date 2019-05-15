@@ -7,7 +7,7 @@ public class Emergency : MonoBehaviour
 {
     public enum E_Severity { Light, Medium, Severe };
     protected E_Severity Severity;
-    protected UrbanArea MyArea;
+    public UrbanArea MyArea;
     protected float Duration;
     public int NAmbulances;
     public int NFiretrucks;
