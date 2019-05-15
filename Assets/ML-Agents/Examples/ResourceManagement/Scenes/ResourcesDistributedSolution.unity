@@ -266,7 +266,7 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nFiretruck
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -349,6 +349,7 @@ MonoBehaviour:
   MyERC: {fileID: 428291608}
   atualEmergencies: 0
   maxEmergencies: 25
+  maxFailures: 20
   allPeople: 0
   peopleSaved: 0
   peopleNotSaved: 0
@@ -575,6 +576,7 @@ MonoBehaviour:
   MyERC: {fileID: 803034593}
   atualEmergencies: 0
   maxEmergencies: 25
+  maxFailures: 20
   allPeople: 0
   peopleSaved: 0
   peopleNotSaved: 0

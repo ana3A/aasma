@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class UrbanArea : MonoBehaviour
 {
+    public string sceneName;
+    public DataHolder dataHolder = null;
     public GameObject EmergencyObject;
     public GameObject DisasterEmergencyObject;
     public GameObject MedicalEmergencyObject;
@@ -18,7 +20,7 @@ public class UrbanArea : MonoBehaviour
     public int atualEmergencies = 0;
     public int maxEmergencies = 15;
     public int maxFailures = 20;
-
+    public int nRestarts;
     public int allPeople = 0;
     public int peopleSaved = 0;
     public int peopleNotSaved = 0;
@@ -26,7 +28,16 @@ public class UrbanArea : MonoBehaviour
     public Text restartText;
     private bool restart;
     public Text gameOverText;
-    //private bool gameOver;    
+    //private bool gameOver;
+
+    public List<float> responseTimes = new List<float>();
+    public List<int> peopleSavedList = new List<int>();
+    public List<int> peopleNotSavedList = new List<int>();
+    public List<int> allPeopleList = new List<int>();
+    public float runningTime = 0f;
+    public float maxResponseTime = -1f;
+    public int maxPeopleSaved = 0;
+    public int maxPeopleNotSaved = 0;
 
     enum E_Type { Medical, Disaster, Both}
 
@@ -36,14 +47,6 @@ public class UrbanArea : MonoBehaviour
     {
         while (true)
         {
-            if (MyERC.getGameOver() || (failures > maxFailures))
-            {
-                gameOverText.text = "Simulation Failed!";
-                restartText.text = "Press 'R' for Restart";
-                restart = true;
-                break;
-            }
-
             yield return new WaitForSeconds(waitTime);
             
             //if (atualEmergencies == maxEmergencies)
@@ -73,6 +76,9 @@ public class UrbanArea : MonoBehaviour
         MyEmergencies = new Dictionary<Vector3, GameObject>();
         var coroutine = MakeEmergenciesOccur(TimeBetween);
         StartCoroutine(coroutine);
+        runningTime = Time.time;
+        //dataHolder 
+        //nRestarts = dataHolder.nRestarts;
     }
 
     // Update is called once per frame
@@ -80,10 +86,40 @@ public class UrbanArea : MonoBehaviour
     {
         if (restart)
         {
-            if (Input.GetKeyDown (KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
+        }
+
+        if ((MyERC.getGameOver() || (failures > maxFailures)) && DataHolder.instance.nRestarts > 1)
+        {
+            peopleSavedList.Add(peopleSaved);
+            peopleNotSavedList.Add(allPeople - peopleSaved);
+            allPeopleList.Add(allPeople);
+
+            maxPeopleSaved = Mathf.Max(maxPeopleSaved, peopleSaved);
+            maxPeopleNotSaved = Mathf.Max(maxPeopleNotSaved, allPeople - peopleSaved);
+            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime);
+            DataHolder.instance.nRestarts--;
+            RestartAll();
+        }
+
+        else if ((MyERC.getGameOver() || (failures > maxFailures)) && DataHolder.instance.nRestarts == 1)
+        {
+            peopleSavedList.Add(peopleSaved);
+            peopleNotSavedList.Add(allPeople - peopleSaved);
+            allPeopleList.Add(allPeople);
+
+            maxPeopleSaved = Mathf.Max(maxPeopleSaved, peopleSaved);
+            maxPeopleNotSaved = Mathf.Max(maxPeopleNotSaved, allPeople - peopleSaved);
+            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime);
+
+            restart = true;
+            gameOverText.text = "Simulation Failed!";
+            restartText.text = "Press 'R' for Restart";
+            Time.timeScale = 0;
+            DataHolder.instance.nRestarts--;
         }
     }
 
@@ -224,6 +260,28 @@ public class UrbanArea : MonoBehaviour
     public void ResetUrbanArea()
     {
         MyEmergencies.Clear();
+    }
+
+    public void RestartAll()
+    {
+        //nRestarts -= 1;
+        //atualEmergencies = 0;
+        //allPeople = 0;
+        //peopleSaved = 0;
+        //peopleNotSaved = 0;
+        //failures = 0;
+        //foreach (Vector3 e in MyEmergencies.Keys)
+        //{
+        //    if (MyEmergencies.ContainsKey(e))
+        //    {
+        //        Debug.Log(e);
+        //        Destroy(MyEmergencies[e].gameObject);
+        //    }
+        //}
+        //MyEmergencies.Clear();
+        //MyERC.RestartERC();
+
+        SceneManager.LoadScene(sceneName);
     }
 
 }

@@ -68,6 +68,7 @@
     <Compile Include="Assets\ML-Agents\Examples\BananaCollectors\Scripts\BananaLogic.cs" />
     <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\Ambulance.cs" />
     <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\BothEmergency.cs" />
+    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\DataHolder.cs" />
     <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\DisasterEmergency.cs" />
     <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\Emergency.cs" />
     <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\EmergencyComparor.cs" />

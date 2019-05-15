@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9340afaa9c27bad4e8d514620e334865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: 
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}
   DisasterEmergencyObject: {fileID: 6630905368245998450, guid: 7e6e22d0992251c458bec7a29ca97b63,
@@ -230,13 +231,21 @@ MonoBehaviour:
   MyERC: {fileID: 1430582808}
   atualEmergencies: 0
   maxEmergencies: 10
-  maxFailures: 20
+  maxFailures: 1
+  nRestarts: 3
   allPeople: 0
   peopleSaved: 0
   peopleNotSaved: 0
   failures: 0
   restartText: {fileID: 238835556}
   gameOverText: {fileID: 1663900144}
+  responseTimes: []
+  peopleSavedList: 
+  peopleNotSavedList: 
+  allPeopleList: 
+  maxResponseTime: 0
+  maxPeopleSaved: 0
+  maxPeopleNotSaved: 0
 --- !u!1 &889804295
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +425,16 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: Decentralized
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: beRandom
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,

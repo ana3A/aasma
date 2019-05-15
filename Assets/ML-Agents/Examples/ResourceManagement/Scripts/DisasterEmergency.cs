@@ -17,6 +17,8 @@ public class DisasterEmergency : Emergency
 
     private float AffectedArea;
     private float InitialAffectedArea;
+    private float Regain;
+    private int MaxRegain = 1;
 
     public void InitEmergency(E_Severity severity, int peopleInvolved, UrbanArea area)
     {
@@ -79,6 +81,8 @@ public class DisasterEmergency : Emergency
 
     public override void SendResources(int ambulances, int firetrucks)
     {
+        sendTime(Time.time - creationTime);
+
         if (NFiretrucks == -1)
             this.NFiretrucks = firetrucks;
         else NFiretrucks += firetrucks;
@@ -111,8 +115,8 @@ public class DisasterEmergency : Emergency
         }
         else
         {
-
-            DevastationLife += regainEnergyPercentage * DevastationLife;
+            Regain = Math.Min(regainEnergyPercentage * DevastationLife, MaxRegain);
+            DevastationLife += Regain;
 
             IncreaseSeverity();
 

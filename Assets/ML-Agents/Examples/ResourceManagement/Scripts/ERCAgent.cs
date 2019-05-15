@@ -33,6 +33,8 @@ public class ERCAgent : MonoBehaviour
 
     private List<Ambulance> ambulances;
     private List<Firetruck> firetrucks;
+    private List<Ambulance> allAmbulances;
+    private List<Firetruck> allFiretrucks;
 
     public bool Decentralized;
 
@@ -50,13 +52,19 @@ public class ERCAgent : MonoBehaviour
         Physics.IgnoreLayerCollision(0, 9);
         ambulances = new List<Ambulance>();
         firetrucks = new List<Firetruck>();
+        allAmbulances = new List<Ambulance>();
+        allFiretrucks = new List<Firetruck>();
         for (int i = 0; i < nAmbulances; i++)
         {
-            ambulances.Add(CreateAmbulance());
+            var a = CreateAmbulance();
+            ambulances.Add(a);
+            allAmbulances.Add(a);
         }
         for (int i = 0; i < nFiretruck; i++)
         {
-            firetrucks.Add(CreateFiretruck());
+            var f = CreateFiretruck();
+            firetrucks.Add(f);
+            allFiretrucks.Add(f);
         }
     }
 
@@ -193,6 +201,27 @@ public class ERCAgent : MonoBehaviour
 
             }
         }
+    }
+
+    internal void RestartERC()
+    {
+        MedicalEmergenciesWaiting.Clear();
+        DisasterEmergenciesWaiting.Clear();
+        spawnInterval = 0;
+        availableAmbulances = nAmbulances;
+        availableFiretrucks = nFiretruck;
+        ambulances.Clear();
+        firetrucks.Clear();
+        foreach(Ambulance a in allAmbulances) {
+            a.RestartAmbulance();
+            ambulances.Add(a);
+        }
+        foreach (Firetruck a in allFiretrucks)
+        {
+            a.RestartFiretruck();
+            firetrucks.Add(a);
+        }
+
     }
 
     public void ReturnAmbulance(Ambulance a)

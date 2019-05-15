@@ -16,6 +16,9 @@ public class Emergency : MonoBehaviour
     public float MediumWaitTime;
     public float SevereWaitTime;
     public float WaitTime;
+    private bool gotTime = true;
+    protected float creationTime;
+
 
     public void Start()
     {
@@ -27,7 +30,17 @@ public class Emergency : MonoBehaviour
 
     }
 
-    public void InitEmergency(UrbanArea area, E_Severity severity, Material material)
+    public void sendTime(float t)
+    {
+        if (gotTime)
+        {
+            gotTime = false;
+            MyArea.responseTimes.Add(t);
+            MyArea.maxResponseTime = Math.Max(MyArea.maxResponseTime, t);
+        }
+    }
+
+public void InitEmergency(UrbanArea area, E_Severity severity, Material material)
     {
         this.MyArea = area;
         this.Duration = 0;

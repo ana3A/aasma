@@ -18,7 +18,7 @@ public class Firetruck : Resource
     private float waitTime = 0;
     static public int damage = 3;
     static public float waterDeposit = 30;
-    private float curWaterDeposit = 30;
+    private float curWaterDeposit = waterDeposit;
 
     //States
     public bool goingToEmergency;
@@ -173,4 +173,15 @@ public class Firetruck : Resource
         //);
     }
 
+    internal void RestartFiretruck()
+    {
+        curWaterDeposit = waterDeposit;
+        gameObject.transform.position = myERC.gameObject.transform.position;
+        speed = 0;
+        returnedToERC = true;
+        onEmergency = false;
+        goingToEmergency = false;
+        goingToERC = false;
+        free = true;
+    }
 }

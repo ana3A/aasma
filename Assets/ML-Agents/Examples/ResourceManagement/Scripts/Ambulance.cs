@@ -168,4 +168,19 @@ public class Ambulance : Resource
         //);
     }
 
+    internal void RestartAmbulance()
+    {
+        peopleToTransport = 0;
+        var pos = myERC.gameObject.transform.position;
+        pos.y = 1;
+        gameObject.transform.position = pos;
+
+        speed = 0;
+        returnedToERC = true;
+        onEmergency = false;
+        goingToEmergency = false;
+        goingToERC = false;
+        free = true;
+
+    }
 }

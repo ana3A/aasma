@@ -18,6 +18,7 @@ public class MedicalEmergency : Emergency
         this.totalPeople = peopleInvolved;
         this.successRate = -1;
         this.SalvationProb = 0.99f;
+        creationTime = Time.time;
         NewSeverity(severity);
         ChangeWaitTime();
     }
@@ -91,6 +92,8 @@ public class MedicalEmergency : Emergency
 
     public override void SendResources(int a, int f)
     {
+        sendTime(Time.time - creationTime);
+
         if (NAmbulances == -1)
         {
             this.NAmbulances = a;
