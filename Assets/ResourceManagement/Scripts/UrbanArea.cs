@@ -209,20 +209,18 @@ public class UrbanArea : MonoBehaviour
     }
     public void RemoveEmergency(Emergency em)
     {
-        atualEmergencies -= 1;
         MyEmergencies.Remove(em.transform.position);
         MyERC.EmergencyEnded(em);
     }
 
-    public void RemoveEmergency(Emergency em, float successRate)
+    public void AddEmergencyStatistics(Emergency em, float successRate)
     {
-        atualEmergencies -= 1;
         if (successRate < 0.5)
         {
             failures +=1;
         }
-        MyEmergencies.Remove(em.transform.position);
-        MyERC.EmergencyEnded(em);
+        //MyEmergencies.Remove(em.transform.position);
+        //MyERC.EmergencyEnded(em);
     }
 
     public void Saved()

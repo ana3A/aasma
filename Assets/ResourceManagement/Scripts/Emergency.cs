@@ -18,8 +18,7 @@ public class Emergency : MonoBehaviour
     public float WaitTime;
     private bool gotTime = true;
     protected float creationTime;
-
-
+    
     public void Start()
     {
 
@@ -155,5 +154,10 @@ public void InitEmergency(UrbanArea area, E_Severity severity, Material material
     public virtual int NeededFiretrucks()
     {
         return 0;
+    }
+
+    public virtual void SendStatistics()
+    {
+
     }
 }

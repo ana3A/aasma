@@ -19,13 +19,14 @@ public class Firetruck : Resource
     static public int damage = 3;
     static public float waterDeposit = 30;
     private float curWaterDeposit = waterDeposit;
-
+    public float preparationTime = 2;
     //States
     public bool goingToEmergency;
     public bool onEmergency;
     public bool goingToERC;
     public bool returnedToERC;
     public bool free;
+    private float timePassedAfterComeBack;
 
     public bool Decentralized { get; set; }
 
@@ -96,7 +97,16 @@ public class Firetruck : Resource
 
         else if (returnedToERC)
         {
-            ReturnFiretruck();
+            if (timePassedAfterComeBack >= preparationTime)
+            {
+                ReturnFiretruck();
+                timePassedAfterComeBack = 0;
+            }
+
+            else
+            {
+                timePassedAfterComeBack += Time.deltaTime;
+            }
         }
     }
 
@@ -123,11 +133,15 @@ public class Firetruck : Resource
             return;
         }
 
-        if (myEmergency.GetEmergencyDisasterLife() <= 0)
+        if (myEmergency.GetEmergencyDisasterLife() <= 0 && myEmergency.GetEmergencyPeopleEnvolved() < 1)
         {
             onEmergency = false;
             goingToERC = true;
             myEmergency.NFiretrucks -= 1;
+            if (Decentralized)
+            {
+                myERC.EmergencyEnded(myEmergency);
+            }
             return;
         }
 

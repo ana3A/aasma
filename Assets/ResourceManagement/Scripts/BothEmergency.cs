@@ -189,15 +189,8 @@ public class BothEmergency : Emergency
 
         if (this.NPeopleInvolved <= 0 && this.DevastationLife <= 0 && this.NAmbulances == 0 && this.NFiretrucks == 0)
         {
-            ratio = InitialAffectedArea / AffectedArea;
-            MyArea.Ratio(ratio);
-            if (successRate > ratio)
-            {
-                successRate = ratio;
-            }
-            //notify area +central
-            MyArea.RemoveEmergency(this, successRate);
-            Destroy(this.gameObject);
+            
+            //Destroy(this.gameObject);
         }
 
         else
@@ -244,5 +237,17 @@ public class BothEmergency : Emergency
     public override int NeededFiretrucks()
     {
         return (int)Math.Ceiling((DevastationLife - Math.Max(0, NFiretrucks) * Firetruck.waterDeposit) / Firetruck.waterDeposit);
+    }
+
+    public override void SendStatistics()
+    {
+        ratio = InitialAffectedArea / AffectedArea;
+        MyArea.Ratio(ratio);
+        if (successRate > ratio)
+        {
+            successRate = ratio;
+        }
+        //notify area +central
+        MyArea.AddEmergencyStatistics(this, successRate);
     }
 }

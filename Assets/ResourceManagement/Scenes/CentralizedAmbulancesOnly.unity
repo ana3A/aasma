@@ -232,7 +232,7 @@ MonoBehaviour:
   MyERC: {fileID: 1430582808}
   atualEmergencies: 0
   maxEmergencies: 10
-  maxFailures: 20
+  maxFailures: 10
   nRestarts: 3
   allPeople: 0
   peopleSaved: 0
@@ -363,12 +363,12 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nAmbulances
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nFiretruck
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -396,6 +396,11 @@ PrefabInstance:
       propertyPath: beRandom
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: myArea
+      value: 
+      objectReference: {fileID: 839337644}
     - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -9,6 +9,7 @@ public class MedicalEmergency : Emergency
     public int totalPeople;
     public int savedPeople;
     public int successRate;
+
     private float SalvationProb;
 
     public void InitEmergency(E_Severity severity, int peopleInvolved, UrbanArea area)
@@ -34,18 +35,24 @@ public class MedicalEmergency : Emergency
 
     }
 
+    public override void SendStatistics()
+    {
+        MyArea.AddEmergencyStatistics(this, successRate);
+    }
+
     // Update is called once per frame
     new void Update()
     {
         Duration += Time.deltaTime;
-
+        //Debug.Log(this.NAmbulances);
         if (this.NAmbulances == 0)
         {
             if (NPeopleInvolved < 1)
             {
                 //notify area + central
-                MyArea.RemoveEmergency(this, successRate);
-                Destroy(this.gameObject);
+                //Debug.Log(successRate);
+                
+                //Destroy(this.gameObject);
             }
             else
             {

@@ -106,16 +106,21 @@ public class DisasterEmergency : Emergency
         
     }
 
+    public override  void SendStatistics()
+    {
+        ratio = InitialAffectedArea / AffectedArea;
+        MyArea.Ratio(ratio);
+        MyArea.AddEmergencyStatistics(this, ratio);
+    }
+
     // Update is called once per frame
     new void Update()
     {
         Duration += Time.deltaTime;
         if (this.DevastationLife <= 0 && NFiretrucks == 0)
         {
-            ratio = InitialAffectedArea / AffectedArea;
-            MyArea.Ratio(ratio);
-            MyArea.RemoveEmergency(this, ratio);
-            Destroy(this.gameObject);
+            
+            //Destroy(this.gameObject);
         }
         else
         {

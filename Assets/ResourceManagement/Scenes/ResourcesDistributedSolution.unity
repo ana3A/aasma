@@ -214,6 +214,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: UrbanArea
       objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: nAmbulances
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: nFiretruck
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: FiretruckObject
+      value: 
+      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
+        type: 3}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: gameOverText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: Decentralized
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: myArea
+      value: 
+      objectReference: {fileID: 428291609}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: Multiple
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: beRandom
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -257,32 +298,6 @@ PrefabInstance:
     - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: nAmbulances
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: nFiretruck
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: FiretruckObject
-      value: 
-      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
-        type: 3}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: gameOverText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: Decentralized
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -336,6 +351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9340afaa9c27bad4e8d514620e334865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: ResourcesDistributedSolution
+  dataHolder: {fileID: 1007100781}
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}
   DisasterEmergencyObject: {fileID: 6630905368245998450, guid: 7e6e22d0992251c458bec7a29ca97b63,
@@ -350,12 +367,22 @@ MonoBehaviour:
   atualEmergencies: 0
   maxEmergencies: 25
   maxFailures: 20
+  nRestarts: 0
   allPeople: 0
   peopleSaved: 0
   peopleNotSaved: 0
   failures: 0
   restartText: {fileID: 570823542}
   gameOverText: {fileID: 2118650898}
+  responseTimes: []
+  peopleSavedList: 
+  peopleNotSavedList: 
+  allPeopleList: 
+  burnedRatio: []
+  runningTime: 0
+  maxResponseTime: -1
+  maxPeopleSaved: 0
+  maxPeopleNotSaved: 0
 --- !u!1 &570823539
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,154 +462,59 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Restart Text
---- !u!1001 &803034591
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1819751139121548, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_Name
-      value: UrbanArea (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: nAmbulances
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: nFiretruck
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: FiretruckObject
-      value: 
-      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
-        type: 3}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: gameOverText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 43.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 7769501244804709029, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 126
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
---- !u!1 &803034592 stripped
+--- !u!1 &1007100780
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1819751139121548, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-    type: 3}
-  m_PrefabInstance: {fileID: 803034591}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &803034593 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-    type: 3}
-  m_PrefabInstance: {fileID: 803034591}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf89252c7783d64fa118ea1bfade09e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &803034594
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1007100782}
+  - component: {fileID: 1007100781}
+  m_Layer: 0
+  m_Name: DataHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1007100781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803034592}
+  m_GameObject: {fileID: 1007100780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9340afaa9c27bad4e8d514620e334865, type: 3}
+  m_Script: {fileID: 11500000, guid: 062dafab24ba16c4890d598aa86354a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
-    type: 3}
-  DisasterEmergencyObject: {fileID: 6630905368245998450, guid: 7e6e22d0992251c458bec7a29ca97b63,
-    type: 3}
-  MedicalEmergencyObject: {fileID: 6630905368245998450, guid: 2a89647936e1571408fa4eda628f96f2,
-    type: 3}
-  BothEmergencyObject: {fileID: 6630905368245998450, guid: c94363c2bbc6b7d48b5dbf3868f567e7,
-    type: 3}
-  range: 48
-  TimeBetween: 0.1
-  MyERC: {fileID: 803034593}
-  atualEmergencies: 0
-  maxEmergencies: 25
-  maxFailures: 20
-  allPeople: 0
-  peopleSaved: 0
-  peopleNotSaved: 0
-  failures: 0
-  restartText: {fileID: 570823542}
-  gameOverText: {fileID: 2118650898}
+  nRestarts: 3
+  responseTimes: []
+  peopleSaved: 
+  peopleNotSaved: 
+  allPeople: 
+  runTimes: []
+  burnedRatios: []
+  maxResponseTime: -1
+  maxPeopleSaved: 0
+  maxPeopleNotSaved: 0
+--- !u!4 &1007100782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007100780}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1276079230
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,7 +813,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2118650897
 GameObject:

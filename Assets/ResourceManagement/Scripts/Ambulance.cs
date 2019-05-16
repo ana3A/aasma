@@ -16,7 +16,8 @@ public class Ambulance : Resource
     private float epsilon = 3f;
     private int peopleToTransport = 0;
     private float waitTime = 0;
-
+    public float preparationTime = 2;
+    private float timePassedAfterComeBack = 0;
     //States
     public bool goingToEmergency;
     public bool onEmergency;
@@ -91,7 +92,17 @@ public class Ambulance : Resource
 
         else if (returnedToERC)
         {
-            ReturnAmbulance();
+            if (timePassedAfterComeBack >= preparationTime)
+            {
+                ReturnAmbulance();
+                timePassedAfterComeBack = 0;
+            }
+
+            else
+            {
+                timePassedAfterComeBack += Time.deltaTime;
+            }
+
         }
     }
 
@@ -118,11 +129,15 @@ public class Ambulance : Resource
             return;
         }
 
-        if (myEmergency.GetEmergencyPeopleEnvolved() < 1)
+        if (myEmergency.GetEmergencyPeopleEnvolved() < 1 && myEmergency.GetEmergencyDisasterLife() <= 0)
         {
             onEmergency = false;
             goingToERC = true;
             myEmergency.NAmbulances -= 1;
+            if (Decentralized)
+            {
+                myERC.EmergencyEnded(myEmergency);
+            }
             return;
         }
 
