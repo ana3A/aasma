@@ -62,104 +62,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ML-Agents\Examples\BananaCollectors\Scripts\BananaAcademy.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\BananaCollectors\Scripts\BananaAgent.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\BananaCollectors\Scripts\BananaArea.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\BananaCollectors\Scripts\BananaLogic.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\Ambulance.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\BothEmergency.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\CommsSystem.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\DataHolder.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\DisasterEmergency.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\Emergency.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\EmergencyComparor.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\ERCAgent.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\Firetruck.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\MedicalEmergency.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\Resource.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\ResourceHelpBoard.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\ResourcesAcademy.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\ResourceManagement\Scripts\UrbanArea.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\AdjustTrainingTimescale.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\Area.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\CameraFollow.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\FlyCamera.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\GroundContact.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\JointDriveController.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\RandomDecision.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\RayPerception.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\RayPerception2D.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\RayPerception3D.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\TargetContact.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\Academy.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\ActionMasker.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\Agent.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\Batcher.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\BCTeacherHelper.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\Brain.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\BrainParameters.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\BroadcastHub.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\Communicator.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\AgentActionProto.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\AgentInfoProto.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\BrainParametersProto.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\CommandProto.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\CustomAction.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\CustomObservation.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\CustomResetParameters.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\DemonstrationMetaProto.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\EngineConfigurationProto.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\EnvironmentParametersProto.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\Header.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\ResolutionProto.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\SpaceTypeProto.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\UnityInput.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\UnityMessage.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\UnityOutput.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\UnityRlInitializationInput.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\UnityRlInitializationOutput.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\UnityRlInput.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\UnityRlOutput.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\UnityToExternal.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\CommunicatorObjects\UnityToExternalGrpc.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\Decision.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\Demonstration.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\DemonstrationRecorder.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\DemonstrationStore.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\HeuristicBrain.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\ApplierImpl.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\BarracudaModelParamLoader.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\GeneratorImpl.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\ModelParamLoader.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\NNModel.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\Tensor.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\TensorApplier.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\TensorGenerator.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\TensorNames.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\TFSharpInferenceEngine.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\Utils\Multinomial.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\InferenceBrain\Utils\RandomNormal.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\LearningBrain.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\Monitor.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\PlayerBrain.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\ResetParameters.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\RpcCommunicator.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\SocketCommunicator.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\UnityAgentsException.cs" />
-    <Compile Include="Assets\ML-Agents\Scripts\Utilities.cs" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Experimental.compute" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Conv.compute" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Random.cginc" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\BarracudaReferenceImpl.compute" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Activation.compute" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Broadcast.compute" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\DenseFP16.compute" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\TexConv.compute" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\ConvOld.compute" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Tensor.cginc" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\FastNV.compute" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Dense.compute" />
-    <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Generic.compute" />
+    <Compile Include="Assets\ResourceManagement\Scripts\Ambulance.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\BothEmergency.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\CommsSystem.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\DataHolder.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\DisasterEmergency.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\Emergency.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\EmergencyComparor.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\ERCAgent.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\Firetruck.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\MedicalEmergency.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\Resource.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\ResourceHelpBoard.cs" />
+    <Compile Include="Assets\ResourceManagement\Scripts\UrbanArea.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
@@ -363,24 +278,6 @@
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.2f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Abstractions">
-      <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/System.IO.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Abstractions.TestingHelpers">
-      <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
-    </Reference>
-    <Reference Include="Barracuda">
-      <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/Barracuda.Core/Barracuda/Barracuda.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Protobuf">
-      <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/ProtoBuffer/Google.Protobuf.dll</HintPath>
-    </Reference>
-    <Reference Include="Grpc.Core">
-      <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/ProtoBuffer/Grpc.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Interactive.Async">
-      <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Assets/ML-Agents/Plugins/ProtoBuffer/System.Interactive.Async.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>C:/Users/kapam/Documents/AASMA/aasma/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
@@ -736,16 +633,6 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.2f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="MacBLAS.csproj">
-      <Project>{AC1633A4-44E0-15CF-E3DC-822714A77CF1}</Project>
-      <Name>MacBLAS</Name>
-    </ProjectReference>
-    <ProjectReference Include="iOSBLAS.csproj">
-      <Project>{DA75DF5B-40A3-B7E7-75BD-BBF66AAC0371}</Project>
-      <Name>iOSBLAS</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
