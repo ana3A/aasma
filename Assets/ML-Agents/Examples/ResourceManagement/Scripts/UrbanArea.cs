@@ -34,6 +34,7 @@ public class UrbanArea : MonoBehaviour
     public List<int> peopleSavedList = new List<int>();
     public List<int> peopleNotSavedList = new List<int>();
     public List<int> allPeopleList = new List<int>();
+    public List<float> burnedRatio = new List<float>();
     public float runningTime = 0f;
     public float maxResponseTime = -1f;
     public int maxPeopleSaved = 0;
@@ -100,7 +101,7 @@ public class UrbanArea : MonoBehaviour
 
             maxPeopleSaved = Mathf.Max(maxPeopleSaved, peopleSaved);
             maxPeopleNotSaved = Mathf.Max(maxPeopleNotSaved, allPeople - peopleSaved);
-            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime);
+            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime, burnedRatio);
             DataHolder.instance.nRestarts--;
             RestartAll();
         }
@@ -113,7 +114,7 @@ public class UrbanArea : MonoBehaviour
 
             maxPeopleSaved = Mathf.Max(maxPeopleSaved, peopleSaved);
             maxPeopleNotSaved = Mathf.Max(maxPeopleNotSaved, allPeople - peopleSaved);
-            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime);
+            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime, burnedRatio);
 
             restart = true;
             gameOverText.text = "Simulation Failed!";
@@ -213,7 +214,7 @@ public class UrbanArea : MonoBehaviour
         MyERC.EmergencyEnded(em);
     }
 
-    public void RemoveEmergency(Emergency em, int successRate)
+    public void RemoveEmergency(Emergency em, float successRate)
     {
         atualEmergencies -= 1;
         if (successRate < 0.5)
@@ -234,6 +235,11 @@ public class UrbanArea : MonoBehaviour
     {
         peopleNotSaved += 1;
         allPeople += 1;
+    }
+
+    public void Ratio(float r)
+    {
+        burnedRatio.Add(r);
     }
 
     public void ReOpenEmergency(DisasterEmergency em)

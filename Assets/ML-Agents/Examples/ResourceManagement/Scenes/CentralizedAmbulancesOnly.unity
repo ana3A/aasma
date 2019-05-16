@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 
+  dataHolder: {fileID: 0}
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}
   DisasterEmergencyObject: {fileID: 6630905368245998450, guid: 7e6e22d0992251c458bec7a29ca97b63,
@@ -243,6 +244,7 @@ MonoBehaviour:
   peopleSavedList: 
   peopleNotSavedList: 
   allPeopleList: 
+  runningTime: 0
   maxResponseTime: 0
   maxPeopleSaved: 0
   maxPeopleNotSaved: 0
@@ -357,6 +359,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: UrbanArea
       objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: nAmbulances
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: nFiretruck
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: FiretruckObject
+      value: 
+      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
+        type: 3}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: gameOverText
+      value: 
+      objectReference: {fileID: 1663900144}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: Decentralized
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: beRandom
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -399,42 +437,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: nAmbulances
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: nFiretruck
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: FiretruckObject
-      value: 
-      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
-        type: 3}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: gameOverText
-      value: 
-      objectReference: {fileID: 1663900144}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: Decentralized
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: beRandom
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
@@ -711,6 +713,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1615150228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1615150230}
+  - component: {fileID: 1615150229}
+  m_Layer: 0
+  m_Name: DataHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1615150229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615150228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 062dafab24ba16c4890d598aa86354a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nRestarts: 3
+  responseTimes: []
+  peopleSaved: 
+  peopleNotSaved: 
+  allPeople: 
+  runTimes: []
+  maxResponseTime: -1
+  maxPeopleSaved: 0
+  maxPeopleNotSaved: 0
+--- !u!4 &1615150230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615150228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1663900142
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,8 @@ public class DisasterEmergency : Emergency
     public float MediumRegainEnergyPercentage;
     public float SevereRegainEnergyPercentage;
 
+    public float ratio;
+
     private float AffectedArea;
     private float InitialAffectedArea;
     private float Regain;
@@ -110,7 +112,13 @@ public class DisasterEmergency : Emergency
         Duration += Time.deltaTime;
         if (this.DevastationLife <= 0 && NFiretrucks == 0)
         {
-            MyArea.RemoveEmergency(this);
+            ratio = InitialAffectedArea / AffectedArea;
+            if (ratio < 0.5)
+            {
+                Debug.Log("ERROERROERROERRO");
+            }
+            MyArea.Ratio(ratio);
+            MyArea.RemoveEmergency(this, ratio);
             Destroy(this.gameObject);
         }
         else

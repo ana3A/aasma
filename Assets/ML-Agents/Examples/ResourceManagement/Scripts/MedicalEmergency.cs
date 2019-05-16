@@ -44,6 +44,10 @@ public class MedicalEmergency : Emergency
             if (NPeopleInvolved < 1)
             {
                 //notify area + central
+                if (successRate < 0.5)
+                {
+                    Debug.Log("ERROERROERROERRO");
+                }
                 MyArea.RemoveEmergency(this, successRate);
                 Destroy(this.gameObject);
             }
@@ -73,7 +77,6 @@ public class MedicalEmergency : Emergency
         {
             if (dyingProb <= 0.001)
             {
-                Debug.Log("medium dead" + dyingProb);
                 NPeopleInvolved -= 1;
                 MyArea.NotSaved();
             }
@@ -82,7 +85,6 @@ public class MedicalEmergency : Emergency
         {
             if (dyingProb <= 0.005)
             {
-                Debug.Log("severe dead" + dyingProb);
                 NPeopleInvolved -= 1;
                 MyArea.NotSaved();
             }
