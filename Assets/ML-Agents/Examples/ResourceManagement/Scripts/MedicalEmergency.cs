@@ -44,10 +44,6 @@ public class MedicalEmergency : Emergency
             if (NPeopleInvolved < 1)
             {
                 //notify area + central
-                if (successRate < 0.5)
-                {
-                    Debug.Log("ERROERROERROERRO");
-                }
                 MyArea.RemoveEmergency(this, successRate);
                 Destroy(this.gameObject);
             }

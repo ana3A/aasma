@@ -8,7 +8,7 @@ public class BothEmergency : Emergency
     public int NPeopleInvolved;
     public int totalPeople;
     public int savedPeople;
-    public int successRate;
+    public float successRate;
     private float SalvationProb;
 
     public float DevastationLife;
@@ -20,6 +20,11 @@ public class BothEmergency : Emergency
     public float LightRegainEnergyPercentage;
     public float MediumRegainEnergyPercentage;
     public float SevereRegainEnergyPercentage;
+
+    public float ratio;
+
+    private float AffectedArea;
+    private float InitialAffectedArea;
     private float Regain;
     private int MaxRegain = 1;
 
@@ -31,6 +36,7 @@ public class BothEmergency : Emergency
         this.successRate = -1;
         this.SalvationProb = 0.99f;
         NewSeverity(severity);
+        InitialAffectedArea = AffectedArea;
         ChangeWaitTime();
         
     }
@@ -45,6 +51,7 @@ public class BothEmergency : Emergency
             DevastationLife = LightDevastationLife;
             regainEnergyPercentage = LightRegainEnergyPercentage;
             MyMaterial.color = new Color(0f / 255f, 255f / 255f, 0f);
+            AffectedArea = LightDevastationLife;
         }
 
         else if (severity == E_Severity.Medium)
@@ -54,6 +61,7 @@ public class BothEmergency : Emergency
             DevastationLife = MediumDevastationLife;
             regainEnergyPercentage = MediumRegainEnergyPercentage;
             MyMaterial.color = new Color(130f / 255f, 255f / 255f, 0f);
+            AffectedArea = MediumDevastationLife;
         }
         else
         {
@@ -62,6 +70,7 @@ public class BothEmergency : Emergency
             DevastationLife = SevereDevastationLife;
             regainEnergyPercentage = SevereRegainEnergyPercentage;
             MyMaterial.color = new Color(255f / 255f, 255f / 255f, 0f);
+            AffectedArea = SevereDevastationLife;
         }
     }
 
@@ -75,6 +84,7 @@ public class BothEmergency : Emergency
             regainEnergyPercentage = MediumRegainEnergyPercentage;
             DevastationLife += DevastationLife * 0.25f;
             MyMaterial.color = new Color(130f / 255f, 255f / 255f, 0f);
+            AffectedArea = AffectedArea * 0.25f;
         }
         else
         {
@@ -83,6 +93,7 @@ public class BothEmergency : Emergency
             regainEnergyPercentage = SevereRegainEnergyPercentage;
             DevastationLife += DevastationLife * 0.5f;
             MyMaterial.color = new Color(255f / 255f, 255f / 255f, 0f);
+            AffectedArea = AffectedArea * 0.5f;
         }
     }
 
@@ -149,7 +160,6 @@ public class BothEmergency : Emergency
         {
             if (dyingProb <= 0.001)
             {
-                Debug.Log("medium dead" + dyingProb);
                 NPeopleInvolved -= 1;
                 MyArea.NotSaved();
             }
@@ -158,7 +168,6 @@ public class BothEmergency : Emergency
         {
             if (dyingProb <= 0.005)
             {
-                Debug.Log("severe dead" + dyingProb);
                 NPeopleInvolved -= 1;
                 MyArea.NotSaved();
             }
@@ -180,6 +189,12 @@ public class BothEmergency : Emergency
 
         if (this.NPeopleInvolved <= 0 && this.DevastationLife <= 0 && this.NAmbulances == 0 && this.NFiretrucks == 0)
         {
+            ratio = InitialAffectedArea / AffectedArea;
+            MyArea.Ratio(ratio);
+            if (successRate > ratio)
+            {
+                successRate = ratio;
+            }
             //notify area +central
             MyArea.RemoveEmergency(this, successRate);
             Destroy(this.gameObject);
@@ -208,6 +223,12 @@ public class BothEmergency : Emergency
             {
                 Regain = Math.Min(regainEnergyPercentage * DevastationLife, MaxRegain);
                 DevastationLife += Regain;
+
+                var p = UnityEngine.Random.Range(0f, 1f);
+                if (p < 0.1)
+                {
+                    AffectedArea += regainEnergyPercentage * AffectedArea;
+                }
             }
 
             IncreaseSeverity();
