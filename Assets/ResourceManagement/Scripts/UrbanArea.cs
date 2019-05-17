@@ -133,7 +133,10 @@ public class UrbanArea : MonoBehaviour
 
         if (type_probability <= 0.6f)
         {
-            people_involved = Random.Range((int)1, (int)21);
+            float x = (float)Random.Range((int)1, (int)21)/20;         //max(21) is exclusive
+            x = Mathf.Pow(-x + 1, 3);                                   //chance distribution. less people is more probable
+
+            people_involved = (int) Mathf.Max(x*20, 1);
             Etype = E_Type.Medical;
         }
         else if (type_probability <= 0.8f)
@@ -142,7 +145,10 @@ public class UrbanArea : MonoBehaviour
         }
         else
         {
-            people_involved = Random.Range((int)1, (int)21);
+            float x = (float)Random.Range((int)1, (int)21)/20;         //max(21) is exclusive
+            x = Mathf.Pow(-x + 1, 3);                                   //chance distribution. less people is more probable
+
+            people_involved = (int) Mathf.Max(x*20, 1);
             Etype = E_Type.Both;
         }
 
