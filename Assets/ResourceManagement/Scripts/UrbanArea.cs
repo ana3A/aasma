@@ -137,6 +137,7 @@ public class UrbanArea : MonoBehaviour
             x = Mathf.Pow(-x + 1, 3);                                   //chance distribution. less people is more probable
 
             people_involved = (int)Mathf.Max(x * 20, 1);
+
             Etype = E_Type.Medical;
         }
         else if (type_probability <= 0.8f)
@@ -149,6 +150,7 @@ public class UrbanArea : MonoBehaviour
             x = Mathf.Pow(-x + 1, 3);                                   //chance distribution. less people is more probable
 
             people_involved = (int)Mathf.Max(x * 20, 1);
+
             Etype = E_Type.Both;
         }
 
