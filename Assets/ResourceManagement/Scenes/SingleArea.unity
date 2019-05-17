@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9340afaa9c27bad4e8d514620e334865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: CentralizedAmbulancesOnly
+  sceneName: SingleArea
   dataHolder: {fileID: 1615150229}
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}
@@ -363,12 +363,12 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nAmbulances
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nFiretruck
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -394,7 +394,7 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: beRandom
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}

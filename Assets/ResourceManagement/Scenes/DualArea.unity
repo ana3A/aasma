@@ -131,6 +131,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: UrbanArea (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: nAmbulances
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: nFiretruck
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: FiretruckObject
+      value: 
+      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
+        type: 3}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: gameOverText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: Decentralized
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: Multiple
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: myArea
+      value: 
+      objectReference: {fileID: 297383774}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: CommunicationSystem
+      value: 
+      objectReference: {fileID: 1521810923}
     - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 100
@@ -174,27 +215,6 @@ PrefabInstance:
     - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: nAmbulances
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: nFiretruck
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: FiretruckObject
-      value: 
-      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
-        type: 3}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: gameOverText
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -248,6 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9340afaa9c27bad4e8d514620e334865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: DualArea
+  dataHolder: {fileID: 1242338896}
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}
   DisasterEmergencyObject: {fileID: 6630905368245998450, guid: 7e6e22d0992251c458bec7a29ca97b63,
@@ -261,12 +283,23 @@ MonoBehaviour:
   MyERC: {fileID: 297383773}
   atualEmergencies: 0
   maxEmergencies: 25
+  maxFailures: 20
+  nRestarts: 0
   allPeople: 0
   peopleSaved: 0
   peopleNotSaved: 0
   failures: 0
   restartText: {fileID: 1255406720}
   gameOverText: {fileID: 684932765}
+  responseTimes: []
+  peopleSavedList: 
+  peopleNotSavedList: 
+  allPeopleList: 
+  burnedRatio: []
+  runningTime: 0
+  maxResponseTime: -1
+  maxPeopleSaved: 0
+  maxPeopleNotSaved: 0
 --- !u!1001 &434476121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -278,6 +311,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: UrbanArea
       objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: nAmbulances
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: nFiretruck
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: FiretruckObject
+      value: 
+      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
+        type: 3}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: gameOverText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: Multiple
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: myArea
+      value: 
+      objectReference: {fileID: 434476124}
+    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
+        type: 3}
+      propertyPath: CommunicationSystem
+      value: 
+      objectReference: {fileID: 1521810923}
     - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -321,27 +390,6 @@ PrefabInstance:
     - target: {fileID: 4688212428263696, guid: 43259c16bc42d4d44bfc0be5daaf1c2d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: nAmbulances
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: nFiretruck
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: FiretruckObject
-      value: 
-      objectReference: {fileID: 6630905368245998450, guid: d9212798c83928d4ba905cb5dbdebd9c,
-        type: 3}
-    - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
-        type: 3}
-      propertyPath: gameOverText
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7745387760262370931, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -395,6 +443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9340afaa9c27bad4e8d514620e334865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: DualArea
+  dataHolder: {fileID: 1242338896}
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}
   DisasterEmergencyObject: {fileID: 6630905368245998450, guid: 7e6e22d0992251c458bec7a29ca97b63,
@@ -408,12 +458,23 @@ MonoBehaviour:
   MyERC: {fileID: 434476123}
   atualEmergencies: 0
   maxEmergencies: 25
+  maxFailures: 20
+  nRestarts: 0
   allPeople: 0
   peopleSaved: 0
   peopleNotSaved: 0
   failures: 0
   restartText: {fileID: 1255406720}
   gameOverText: {fileID: 684932765}
+  responseTimes: []
+  peopleSavedList: 
+  peopleNotSavedList: 
+  allPeopleList: 
+  burnedRatio: []
+  runningTime: 0
+  maxResponseTime: -1
+  maxPeopleSaved: 0
+  maxPeopleNotSaved: 0
 --- !u!1 &581225173
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,6 +894,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1242338895
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1242338897}
+  - component: {fileID: 1242338896}
+  m_Layer: 0
+  m_Name: DataHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1242338896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242338895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 062dafab24ba16c4890d598aa86354a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nRestarts: 3
+  responseTimes: []
+  peopleSaved: 
+  peopleNotSaved: 
+  allPeople: 
+  runTimes: []
+  burnedRatios: []
+  maxResponseTime: -1
+  maxPeopleSaved: 0
+  maxPeopleNotSaved: 0
+--- !u!4 &1242338897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242338895}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1255406717
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,3 +1026,46 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Restart Text
+--- !u!1 &1521810922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1521810924}
+  - component: {fileID: 1521810923}
+  m_Layer: 0
+  m_Name: Communication System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1521810923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521810922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba06bf77f7334a4ab3c46271ab8815a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1521810924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521810922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

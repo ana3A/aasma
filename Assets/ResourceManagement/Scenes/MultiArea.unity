@@ -459,7 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9340afaa9c27bad4e8d514620e334865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MultiAreas
+  sceneName: MultiArea
   dataHolder: {fileID: 1663145417}
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9340afaa9c27bad4e8d514620e334865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MultiAreas
+  sceneName: MultiArea
   dataHolder: {fileID: 1663145417}
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}
@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9340afaa9c27bad4e8d514620e334865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MultiAreas
+  sceneName: MultiArea
   dataHolder: {fileID: 1663145417}
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}
@@ -1392,7 +1392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9340afaa9c27bad4e8d514620e334865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MultiAreas
+  sceneName: MultiArea
   dataHolder: {fileID: 1663145417}
   EmergencyObject: {fileID: 6630905368245998450, guid: 6557d2f20b48b4147b92f868b6c984cc,
     type: 3}

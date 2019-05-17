@@ -133,12 +133,12 @@ public class Firetruck : Resource
             return;
         }
 
-        if (myEmergency.GetEmergencyDisasterLife() <= 0 && myEmergency.GetEmergencyPeopleEnvolved() < 1)
+        if (myEmergency.GetEmergencyDisasterLife() <= 0)
         {
             onEmergency = false;
             goingToERC = true;
             myEmergency.NFiretrucks -= 1;
-            if (Decentralized)
+            if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0 && myEmergency.GetEmergencyPeopleEnvolved() < 1)
             {
                 myERC.EmergencyEnded(myEmergency);
             }

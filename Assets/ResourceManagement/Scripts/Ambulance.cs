@@ -129,12 +129,12 @@ public class Ambulance : Resource
             return;
         }
 
-        if (myEmergency.GetEmergencyPeopleEnvolved() < 1 && myEmergency.GetEmergencyDisasterLife() <= 0)
+        if (myEmergency.GetEmergencyPeopleEnvolved() < 1)
         {
             onEmergency = false;
             goingToERC = true;
             myEmergency.NAmbulances -= 1;
-            if (Decentralized)
+            if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0 && myEmergency.GetEmergencyDisasterLife() <= 0)
             {
                 myERC.EmergencyEnded(myEmergency);
             }
