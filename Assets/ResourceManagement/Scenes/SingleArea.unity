@@ -232,7 +232,7 @@ MonoBehaviour:
   MyERC: {fileID: 1430582808}
   atualEmergencies: 0
   maxEmergencies: 10
-  maxFailures: 10
+  maxFailures: 15
   nRestarts: 3
   allPeople: 0
   peopleSaved: 0
@@ -363,12 +363,12 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nAmbulances
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nFiretruck
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -748,7 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 062dafab24ba16c4890d598aa86354a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nRestarts: 3
+  nRestarts: 10
   responseTimes: []
   peopleSaved: 
   peopleNotSaved: 

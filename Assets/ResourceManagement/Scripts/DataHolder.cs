@@ -44,4 +44,41 @@ public class DataHolder : MonoBehaviour
 
         burnedRatios.AddRange(burned);
     }
+
+    public void WriteFile()
+    {
+        using (System.IO.StreamWriter logFile = new System.IO.StreamWriter(@"C:\Users\kapam\Documents\AASMA\Results.txt", true))
+        {
+            logFile.WriteLine("responseTimes");
+            responseTimes.ForEach(logFile.WriteLine);
+
+            logFile.WriteLine("peopleSaved");
+            peopleSaved.ForEach(logFile.WriteLine);
+
+            logFile.WriteLine("peopleNotSaved");
+            peopleNotSaved.ForEach(logFile.WriteLine);
+
+            logFile.WriteLine("allPeople");
+            allPeople.ForEach(logFile.WriteLine);
+
+            logFile.WriteLine("runTimes");
+            runTimes.ForEach(logFile.WriteLine);
+
+            logFile.WriteLine("maxResponseTime");
+            logFile.WriteLine(maxResponseTime);
+
+            logFile.WriteLine("maxPeopleSaved");
+            logFile.WriteLine(maxPeopleSaved);
+
+            logFile.WriteLine("maxPeopleNotSaved");
+            logFile.WriteLine(maxPeopleNotSaved);
+
+
+            logFile.WriteLine("burnedRatios");
+            burnedRatios.ForEach(logFile.WriteLine);
+
+            logFile.WriteLine("------------------------------------------------");
+
+        }
+    }
 }

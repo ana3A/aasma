@@ -84,7 +84,7 @@ public class BothEmergency : Emergency
             regainEnergyPercentage = MediumRegainEnergyPercentage;
             DevastationLife += DevastationLife * 0.25f;
             MyMaterial.color = new Color(130f / 255f, 255f / 255f, 0f);
-            AffectedArea = AffectedArea * 0.25f;
+            AffectedArea += AffectedArea * 0.25f;
         }
         else
         {
@@ -93,7 +93,7 @@ public class BothEmergency : Emergency
             regainEnergyPercentage = SevereRegainEnergyPercentage;
             DevastationLife += DevastationLife * 0.5f;
             MyMaterial.color = new Color(255f / 255f, 255f / 255f, 0f);
-            AffectedArea = AffectedArea * 0.5f;
+            AffectedArea += AffectedArea * 0.5f;
         }
     }
 
@@ -218,7 +218,7 @@ public class BothEmergency : Emergency
                 DevastationLife += Regain;
 
                 var p = UnityEngine.Random.Range(0f, 1f);
-                if (p < 0.1)
+                if (p < 0.8)
                 {
                     AffectedArea += regainEnergyPercentage * AffectedArea;
                 }
@@ -242,12 +242,19 @@ public class BothEmergency : Emergency
     public override void SendStatistics()
     {
         ratio = InitialAffectedArea / AffectedArea;
-        MyArea.Ratio(ratio);
+        Debug.Log("hi");
+        Debug.Log(InitialAffectedArea);
+        Debug.Log(AffectedArea);
+        MyArea.Ratio(AffectedArea/InitialAffectedArea);
         if (successRate > ratio)
         {
             successRate = ratio;
         }
         //notify area +central
+        if (ratio < 0.5)
+        {
+            Debug.Log("Dead");
+        }
         MyArea.AddEmergencyStatistics(this, successRate);
     }
 }
