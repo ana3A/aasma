@@ -473,6 +473,17 @@ public class ERCAgent : MonoBehaviour
         }
     }
 
+    public void EmergencyImpossible(Emergency em)
+    {
+        if (EmergenciesBeingTreated.Contains(em))
+        {
+            EmergenciesBeingTreated.Remove(em);
+            Destroy(em.gameObject);
+            Destroy(em);
+            myArea.ImpossibleEmergencies += 1;
+        }
+    }
+
     public void MedicalEmergencyControlled(Emergency em)
     {
         MedicalEmergenciesWaiting.Remove(em);

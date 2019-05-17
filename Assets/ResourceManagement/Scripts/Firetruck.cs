@@ -145,6 +145,17 @@ public class Firetruck : Resource
             return;
         }
 
+        if (myEmergency.GetEmergencyDisasterLife() >= 500)
+        {
+            onEmergency = false;
+            goingToERC = true;
+            myEmergency.NFiretrucks -= 1;
+            if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0 && myEmergency.GetEmergencyPeopleEnvolved() < 1)
+            {
+                myERC.EmergencyImpossible(myEmergency);
+            }
+            return;
+        }
 
         if (waitTime >= myEmergency.WaitTime)
         {

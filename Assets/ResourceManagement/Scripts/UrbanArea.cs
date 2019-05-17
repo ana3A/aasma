@@ -39,6 +39,7 @@ public class UrbanArea : MonoBehaviour
     public float maxResponseTime = -1f;
     public int maxPeopleSaved = 0;
     public int maxPeopleNotSaved = 0;
+    public int ImpossibleEmergencies = 0;
 
     enum E_Type { Medical, Disaster, Both}
 
@@ -101,7 +102,7 @@ public class UrbanArea : MonoBehaviour
 
             maxPeopleSaved = Mathf.Max(maxPeopleSaved, peopleSaved);
             maxPeopleNotSaved = Mathf.Max(maxPeopleNotSaved, allPeople - peopleSaved);
-            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime, burnedRatio);
+            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime, burnedRatio, ImpossibleEmergencies);
             DataHolder.instance.nRestarts--;
             RestartAll();
         }
@@ -114,7 +115,7 @@ public class UrbanArea : MonoBehaviour
 
             maxPeopleSaved = Mathf.Max(maxPeopleSaved, peopleSaved);
             maxPeopleNotSaved = Mathf.Max(maxPeopleNotSaved, allPeople - peopleSaved);
-            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime, burnedRatio);
+            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime, burnedRatio, ImpossibleEmergencies);
             DataHolder.instance.WriteFile();
             restart = true;
             gameOverText.text = "Simulation Failed!";
