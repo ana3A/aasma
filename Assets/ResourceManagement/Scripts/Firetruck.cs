@@ -147,10 +147,11 @@ public class Firetruck : Resource
 
         if (myEmergency.GetEmergencyDisasterLife() >= 500)
         {
+            Debug.Log("impossivel!!!!!!!!!!!!!!!" + myEmergency.GetEmergencyDisasterLife());
             onEmergency = false;
             goingToERC = true;
             myEmergency.NFiretrucks -= 1;
-            if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0 && myEmergency.GetEmergencyPeopleEnvolved() < 1)
+            if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0)
             {
                 myERC.EmergencyImpossible(myEmergency);
             }

@@ -94,7 +94,7 @@ public class UrbanArea : MonoBehaviour
             }
         }
 
-        if ((MyERC.getGameOver() || (failures > maxFailures)) && DataHolder.instance.nRestarts > 1)
+        if ((MyERC.getGameOver() || (failures > maxFailures)) && DataHolder.instance.nRestarts >= 1)
         {
             peopleSavedList.Add(peopleSaved);
             peopleNotSavedList.Add(allPeople - peopleSaved);
@@ -102,27 +102,71 @@ public class UrbanArea : MonoBehaviour
 
             maxPeopleSaved = Mathf.Max(maxPeopleSaved, peopleSaved);
             maxPeopleNotSaved = Mathf.Max(maxPeopleNotSaved, allPeople - peopleSaved);
-            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime, burnedRatio, ImpossibleEmergencies);
-            DataHolder.instance.nRestarts--;
-            RestartAll();
+
+            float rTimes = 0;
+            for (var i = 0; i < responseTimes.Count; i++)
+            {
+                rTimes += responseTimes[i];
+            }
+            rTimes = rTimes / responseTimes.Count;
+
+            float bRatios = 0;
+            for (var i = 0; i < burnedRatio.Count; i++)
+            {
+                bRatios += burnedRatio[i];
+            }
+            bRatios = bRatios / burnedRatio.Count;
+
+            DataHolder.instance.SendData(rTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime, bRatios, ImpossibleEmergencies, MyERC.wastedAmbulances, MyERC.wastedFiretrucks);
+
+
+            if (DataHolder.instance.nRestarts == 1)
+            {
+                DataHolder.instance.WriteFile();
+                restart = true;
+                gameOverText.text = "Simulation Failed!";
+                restartText.text = "Press 'R' for Restart";
+                Time.timeScale = 0;
+                DataHolder.instance.nRestarts--;
+            }
+            else
+            {
+                DataHolder.instance.nRestarts--;
+                RestartAll();
+            }
         }
 
-        else if ((MyERC.getGameOver() || (failures > maxFailures)) && DataHolder.instance.nRestarts == 1)
-        {
-            peopleSavedList.Add(peopleSaved);
-            peopleNotSavedList.Add(allPeople - peopleSaved);
-            allPeopleList.Add(allPeople);
+        //else if ((MyERC.getGameOver() || (failures > maxFailures)) && DataHolder.instance.nRestarts == 1)
+        //{
+        //    peopleSavedList.Add(peopleSaved);
+        //    peopleNotSavedList.Add(allPeople - peopleSaved);
+        //    allPeopleList.Add(allPeople);
 
-            maxPeopleSaved = Mathf.Max(maxPeopleSaved, peopleSaved);
-            maxPeopleNotSaved = Mathf.Max(maxPeopleNotSaved, allPeople - peopleSaved);
-            DataHolder.instance.SendData(responseTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime, burnedRatio, ImpossibleEmergencies);
-            DataHolder.instance.WriteFile();
-            restart = true;
-            gameOverText.text = "Simulation Failed!";
-            restartText.text = "Press 'R' for Restart";
-            Time.timeScale = 0;
-            DataHolder.instance.nRestarts--;
-        }
+        //    maxPeopleSaved = Mathf.Max(maxPeopleSaved, peopleSaved);
+        //    maxPeopleNotSaved = Mathf.Max(maxPeopleNotSaved, allPeople - peopleSaved);
+
+        //    float rTimes = 0;
+        //    for (var i = 0; i < responseTimes.Count; i++)
+        //    {
+        //        rTimes += responseTimes[i];
+        //    }
+        //    rTimes = rTimes / responseTimes.Count;
+
+        //    float bRatios = 0;
+        //    for (var i = 0; i < burnedRatio.Count; i++)
+        //    {
+        //        bRatios += burnedRatio[i];
+        //    }
+        //    bRatios = bRatios / burnedRatio.Count;
+
+        //    DataHolder.instance.SendData(rTimes, peopleSavedList, peopleNotSavedList, allPeopleList, maxResponseTime, maxPeopleSaved, maxPeopleNotSaved, Time.time - runningTime, bRatios, ImpossibleEmergencies, MyERC.wastedAmbulances, MyERC.wastedFiretrucks);
+        //    DataHolder.instance.WriteFile();
+        //    restart = true;
+        //    gameOverText.text = "Simulation Failed!";
+        //    restartText.text = "Press 'R' for Restart";
+        //    Time.timeScale = 0;
+        //    DataHolder.instance.nRestarts--;
+        //}
     }
 
     void CreateEmergency()

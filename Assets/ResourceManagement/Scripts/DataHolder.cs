@@ -12,6 +12,8 @@ public class DataHolder : MonoBehaviour
     public List<float> runTimes = new List<float>();
     public List<float> burnedRatios = new List<float>();
     public List<int> ImpossibleEmergencies = new List<int>();
+    public List<int> WastedAmbulances = new List<int>();
+    public List<int> WastedFiretrucks = new List<int>();
     public float maxResponseTime = -1f;
     public int maxPeopleSaved = 0;
     public int maxPeopleNotSaved = 0;
@@ -31,9 +33,9 @@ public class DataHolder : MonoBehaviour
         DontDestroyOnLoad(instance);
     }
 
-    public void SendData(List<float> responseTimesList, List<int> peopleSavedList, List<int> peopleNotSavedList, List<int> allPeopleList, float maxRepTime, int maxPeopleSav, int maxPeopleNotSav, float runningTime, List<float> burned, int ImpEm)
+    public void SendData(float responseTimesList, List<int> peopleSavedList, List<int> peopleNotSavedList, List<int> allPeopleList, float maxRepTime, int maxPeopleSav, int maxPeopleNotSav, float runningTime, float burned, int ImpEm, int wastedAmb, int wastedFir)
     {
-        responseTimes.AddRange(responseTimesList);
+        responseTimes.Add(responseTimesList);
         peopleSaved.AddRange(peopleSavedList);
         peopleNotSaved.AddRange(peopleNotSavedList);
         allPeople.AddRange(allPeopleList);
@@ -43,8 +45,11 @@ public class DataHolder : MonoBehaviour
         maxPeopleSaved = Mathf.Max(maxPeopleSaved, maxPeopleSav);
         maxPeopleNotSaved = Mathf.Max(maxPeopleNotSaved, maxPeopleNotSav);
 
-        burnedRatios.AddRange(burned);
+        burnedRatios.Add(burned);
         ImpossibleEmergencies.Add(ImpEm);
+
+        WastedAmbulances.Add(wastedAmb);
+        WastedFiretrucks.Add(wastedFir);
     }
 
     public void WriteFile()

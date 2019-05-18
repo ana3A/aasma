@@ -19,7 +19,7 @@ public class MedicalEmergency : Emergency
         this.totalPeople = peopleInvolved;
         this.successRate = -1;
         this.SalvationProb = 0.99f;
-        creationTime = Time.time;
+        this.creationTime = Time.time;
         NewSeverity(severity);
         ChangeWaitTime();
     }
@@ -66,8 +66,11 @@ public class MedicalEmergency : Emergency
 
         else
         {
-            CheckIfDead();
-            
+            if (this.NPeopleInvolved >= 1)
+            {
+                CheckIfDead();
+            }
+
             IncreaseSeverity();
         }
 

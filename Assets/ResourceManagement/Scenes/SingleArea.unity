@@ -231,7 +231,7 @@ MonoBehaviour:
   TimeBetween: 0.1
   MyERC: {fileID: 1430582808}
   atualEmergencies: 0
-  maxEmergencies: 10
+  maxEmergencies: 15
   maxFailures: 15
   nRestarts: 3
   allPeople: 0
@@ -249,6 +249,7 @@ MonoBehaviour:
   maxResponseTime: 0
   maxPeopleSaved: 0
   maxPeopleNotSaved: 0
+  ImpossibleEmergencies: 0
 --- !u!1 &889804295
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +756,9 @@ MonoBehaviour:
   allPeople: 
   runTimes: []
   burnedRatios: []
+  ImpossibleEmergencies: 
+  WastedAmbulances: 
+  WastedFiretrucks: 
   maxResponseTime: -1
   maxPeopleSaved: 0
   maxPeopleNotSaved: 0

@@ -25,7 +25,7 @@ public class DisasterEmergency : Emergency
     public void InitEmergency(E_Severity severity, int peopleInvolved, UrbanArea area)
     {
         base.InitEmergency(area, severity, this.GetComponent<Renderer>().material);
-
+        this.creationTime = Time.time;
         NewSeverity(severity);
         InitialAffectedArea = AffectedArea;
     }
@@ -109,9 +109,9 @@ public class DisasterEmergency : Emergency
     public override  void SendStatistics()
     {
         ratio = InitialAffectedArea / AffectedArea;
-        Debug.Log("hi");
-        Debug.Log(InitialAffectedArea);
-        Debug.Log(AffectedArea);
+        //Debug.Log("hi");
+        //Debug.Log(InitialAffectedArea);
+        //Debug.Log(AffectedArea);
         MyArea.Ratio(AffectedArea/InitialAffectedArea);
         if (ratio < 0.5)
         {

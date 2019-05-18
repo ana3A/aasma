@@ -103,30 +103,46 @@ public class ERCAgent : MonoBehaviour
             //Our perceptions are the calls, which are simulated by the urban area
             //Update World State
             UpdateEmergencies();
-
-            if (!beRandom)
+            if (spawnInterval >= maxSpawnInterval)
             {
-                //Create the intentions: our agent has all emergencies to be resolved as an intension
-                //Generates only valid intensions
-                //Filter Intensions and Generate Plan:
-                //In here the ERC will chosse which emergencies to tackle.
-                Emergency medEm;
-                Emergency disEm;
-                Emergency helpMedEm;
-                Emergency helpDisEm;
-                ChooseEmergenciesToTackle(out medEm, out disEm, out helpMedEm, out helpDisEm);
+                if (!beRandom)
+                {
+                    //Create the intentions: our agent has all emergencies to be resolved as an intension
+                    //Generates only valid intensions
+                    //Filter Intensions and Generate Plan:
+                    //In here the ERC will chosse which emergencies to tackle.
+                    Emergency medEm;
+                    Emergency disEm;
+                    Emergency helpMedEm;
+                    Emergency helpDisEm;
+                    ChooseEmergenciesToTackle(out medEm, out disEm, out helpMedEm, out helpDisEm);
 
-                //Execute the plan: by sending the resources
-                SendResources(medEm, disEm);
-                SendHelp(helpMedEm, helpDisEm);
+                    //Execute the plan: by sending the resources
+
+                    SendResources(medEm, disEm);
+                    SendHelp(helpMedEm, helpDisEm);
+                    spawnInterval = 0;
+
+                }
+
+                else
+                {
+                    Emergency medEm;
+                    Emergency disEm;
+
+                    if (spawnInterval >= maxSpawnInterval)
+                    {
+                        getRandomEmergencies(out medEm, out disEm);
+                        sendRandomResources(medEm, disEm);
+                        spawnInterval = 0;
+                    }
+
+                }
+                spawnInterval = 0;
             }
-
             else
             {
-                Emergency medEm;
-                Emergency disEm;
-                getRandomEmergencies(out medEm, out disEm);
-                sendRandomResources(medEm, disEm);
+                spawnInterval += Time.deltaTime;
             }
         }
     }
@@ -156,16 +172,47 @@ public class ERCAgent : MonoBehaviour
                 }
             }
 
+            if (EmergenciesBeingTreated[i].GetEmergencyDisasterLife() > 500)
+            {
+                if (EmergenciesBeingTreated[i].NAmbulances <= 0 && EmergenciesBeingTreated[i].NFiretrucks <= 0)
+                {
+                    Emergency e = EmergenciesBeingTreated[i];
+                    //EmergenciesBeingTreated.RemoveAt(i);
+                    //Debug.Log("removed");
+                    e.SendStatistics();
+                    EmergenciesBeingTreated.Remove(e);
+                    Destroy(e.gameObject);
+                    Destroy(e);
+                    myArea.atualEmergencies--;
+                    myArea.ImpossibleEmergencies += 1;
+                    continue;
+                }
+            }
+
             if (EmergenciesBeingTreated[i].GetEmergencyPeopleEnvolved() > 0 && EmergenciesBeingTreated[i].NAmbulances <= 0)
             {
-                MedicalEmergenciesWaiting.Add(EmergenciesBeingTreated[i]);
-                ToRemove = true;
+                if (!MedicalEmergenciesWaiting.Contains(EmergenciesBeingTreated[i]))
+                {
+                    MedicalEmergenciesWaiting.Add(EmergenciesBeingTreated[i]);
+                }
+
+                if (EmergenciesBeingTreated[i].NFiretrucks < 0)
+                {
+                    ToRemove = true;
+                }
             }
 
             if (EmergenciesBeingTreated[i].GetEmergencyDisasterLife() > 0 && EmergenciesBeingTreated[i].NFiretrucks <= 0)
             {
-                DisasterEmergenciesWaiting.Add(EmergenciesBeingTreated[i]);
-                ToRemove = true;
+                if (!DisasterEmergenciesWaiting.Contains(EmergenciesBeingTreated[i]))
+                {
+                    DisasterEmergenciesWaiting.Add(EmergenciesBeingTreated[i]);
+                }
+
+                if (EmergenciesBeingTreated[i].NAmbulances < 0)
+                {
+                    ToRemove = true;
+                }
             }
 
             if (ToRemove)
@@ -289,11 +336,14 @@ public class ERCAgent : MonoBehaviour
                 availableAmbulances--;
             }
 
-            medEm.SendResources(ambulancesNeeded, 0);
-            MedicalEmergenciesWaiting.Remove(medEm);
-            if (!EmergenciesBeingTreated.Contains(medEm))
+            if (ambulancesNeeded > 0)
             {
-                EmergenciesBeingTreated.Add(medEm);
+                medEm.SendResources(ambulancesNeeded, 0);
+                MedicalEmergenciesWaiting.Remove(medEm);
+                if (!EmergenciesBeingTreated.Contains(medEm))
+                {
+                    EmergenciesBeingTreated.Add(medEm);
+                }
             }
 
         }
@@ -311,11 +361,14 @@ public class ERCAgent : MonoBehaviour
                 availableFiretrucks--;
             }
 
-            disEm.SendResources(0, firetrucksNeeded);
-            DisasterEmergenciesWaiting.Remove(disEm);
-            if (!EmergenciesBeingTreated.Contains(disEm))
+            if (firetrucksNeeded > 0)
             {
-                EmergenciesBeingTreated.Add(disEm);
+                disEm.SendResources(0, firetrucksNeeded);
+                DisasterEmergenciesWaiting.Remove(disEm);
+                if (!EmergenciesBeingTreated.Contains(disEm))
+                {
+                    EmergenciesBeingTreated.Add(disEm);
+                }
             }
         }
     }
@@ -470,6 +523,7 @@ public class ERCAgent : MonoBehaviour
             EmergenciesBeingTreated.Remove(em);
             Destroy(em.gameObject);
             Destroy(em);
+            myArea.atualEmergencies--;
         }
     }
 
@@ -481,6 +535,7 @@ public class ERCAgent : MonoBehaviour
             Destroy(em.gameObject);
             Destroy(em);
             myArea.ImpossibleEmergencies += 1;
+            myArea.atualEmergencies--;
         }
     }
 

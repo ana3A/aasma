@@ -35,6 +35,7 @@ public class BothEmergency : Emergency
         this.totalPeople = peopleInvolved;
         this.successRate = -1;
         this.SalvationProb = 0.99f;
+        this.creationTime = Time.time;
         NewSeverity(severity);
         InitialAffectedArea = AffectedArea;
         ChangeWaitTime();
@@ -242,9 +243,9 @@ public class BothEmergency : Emergency
     public override void SendStatistics()
     {
         ratio = InitialAffectedArea / AffectedArea;
-        Debug.Log("hi");
-        Debug.Log(InitialAffectedArea);
-        Debug.Log(AffectedArea);
+        //Debug.Log("hi");
+        //Debug.Log(InitialAffectedArea);
+        //Debug.Log(AffectedArea);
         MyArea.Ratio(AffectedArea/InitialAffectedArea);
         if (successRate > ratio)
         {
