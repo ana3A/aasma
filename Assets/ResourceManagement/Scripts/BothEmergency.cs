@@ -252,10 +252,6 @@ public class BothEmergency : Emergency
             successRate = ratio;
         }
         //notify area +central
-        if (ratio < 0.5)
-        {
-            Debug.Log("Dead");
-        }
         MyArea.AddEmergencyStatistics(this, successRate);
     }
 }

@@ -27,11 +27,11 @@ public class CommsSystem : MonoBehaviour
             Tuple<Emergency, int> help = MedicalEmergenciesNeedingHelp[0];
             while (help.Item1 == null)    //deletes already completed emergencies
             {
-                Debug.Log("Emergency already dealt with previously. Please try to help another");
+                //Debug.Log("Emergency already dealt with previously. Please try to help another");
                 MedicalEmergenciesNeedingHelp.RemoveAt(0);
                 if(MedicalEmergenciesNeedingHelp.Count == 0)
                 {
-                    Debug.Log("No more help needed");
+                    //Debug.Log("No more help needed");
                     ReturnB = false;
                     ReturnEm = null;
                     return;
@@ -56,7 +56,7 @@ public class CommsSystem : MonoBehaviour
             }
             else
             {
-                Debug.Log(helper + " cant help itself: " + ReturnEm.MyArea.MyERC);
+                //Debug.Log(helper + " cant help itself: " + ReturnEm.MyArea.MyERC);
             }
             
         }
@@ -71,11 +71,11 @@ public class CommsSystem : MonoBehaviour
             Tuple<Emergency, int> help = DisasterEmergenciesNeedingHelp[0];
             while (help.Item1 == null)    //deletes already completed emergencies
             {
-                Debug.Log("Emergency already dealt with previously. Please try to help another");
+                //Debug.Log("Emergency already dealt with previously. Please try to help another");
                 DisasterEmergenciesNeedingHelp.RemoveAt(0);
                 if(DisasterEmergenciesNeedingHelp.Count == 0)
                 {
-                    Debug.Log("No more help needed");
+                    //Debug.Log("No more help needed");
                     ReturnB = false;
                     ReturnEm = null;
                     return;
@@ -100,7 +100,7 @@ public class CommsSystem : MonoBehaviour
             }
             else
             {
-                Debug.Log(helper + " cant help itself: " + ReturnEm.MyArea.MyERC);
+                //Debug.Log(helper + " cant help itself: " + ReturnEm.MyArea.MyERC);
             }
             
         }
@@ -111,7 +111,7 @@ public class CommsSystem : MonoBehaviour
 
     public void needMedHelp(Emergency em, int ambulancesNeeded)
     {
-        Debug.Log(em.MyArea.MyERC + " needs help");
+        //Debug.Log(em.MyArea.MyERC + " needs help");
         Tuple<Emergency, int> helptuple = new Tuple<Emergency, int>(em, ambulancesNeeded);
         MedicalEmergenciesNeedingHelp.Add(helptuple);
     }

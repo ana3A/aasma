@@ -113,10 +113,6 @@ public class DisasterEmergency : Emergency
         //Debug.Log(InitialAffectedArea);
         //Debug.Log(AffectedArea);
         MyArea.Ratio(AffectedArea/InitialAffectedArea);
-        if (ratio < 0.5)
-        {
-            Debug.Log("Dead");
-        }
         MyArea.AddEmergencyStatistics(this, ratio);
     }
 

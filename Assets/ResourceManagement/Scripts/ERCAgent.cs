@@ -14,15 +14,15 @@ public class ERCAgent : MonoBehaviour
     public bool beRandom;
     Rigidbody agentRb;
     private List<Emergency> Calls;
-    private List<Emergency> MedicalEmergenciesWaiting;
-    private List<Emergency> DisasterEmergenciesWaiting;
-    private List<Emergency> EmergenciesBeingTreated;
+    public List<Emergency> MedicalEmergenciesWaiting;
+    public List<Emergency> DisasterEmergenciesWaiting;
+    public List<Emergency> EmergenciesBeingTreated;
     //private List<Emergency> DisasterEmergenciesBeingTreated;
     private Dictionary<Vector3, Emergency> EmergencyDic;
     [SerializeField]
-    private int nAmbulances;
+    private int nAmbulances = 0;
     [SerializeField]
-    private int nFiretruck;
+    private int nFiretruck = 0;
     private EmergencyComparor EmComparor;
     [SerializeField]
     private int availableAmbulances;
@@ -84,6 +84,7 @@ public class ERCAgent : MonoBehaviour
     {
         if (Decentralized)
         {
+            UpdateEmergencies();
             foreach (Emergency e in Calls)
             {
                 if (!EmergencyDic.ContainsKey(e.gameObject.transform.position))
@@ -163,6 +164,8 @@ public class ERCAgent : MonoBehaviour
                     Emergency e = EmergenciesBeingTreated[i];
                     //EmergenciesBeingTreated.RemoveAt(i);
                     //Debug.Log("removed");
+                    MedicalEmergenciesWaiting.Remove(e);
+                    DisasterEmergenciesWaiting.Remove(e);
                     e.SendStatistics();
                     EmergenciesBeingTreated.Remove(e);
                     Destroy(e.gameObject);
@@ -172,13 +175,15 @@ public class ERCAgent : MonoBehaviour
                 }
             }
 
-            if (EmergenciesBeingTreated[i].GetEmergencyDisasterLife() > 500)
+            if (EmergenciesBeingTreated[i].GetEmergencyDisasterLife() >= 250)
             {
                 if (EmergenciesBeingTreated[i].NAmbulances <= 0 && EmergenciesBeingTreated[i].NFiretrucks <= 0)
                 {
                     Emergency e = EmergenciesBeingTreated[i];
                     //EmergenciesBeingTreated.RemoveAt(i);
                     //Debug.Log("removed");
+                    MedicalEmergenciesWaiting.Remove(e);
+                    DisasterEmergenciesWaiting.Remove(e);
                     e.SendStatistics();
                     EmergenciesBeingTreated.Remove(e);
                     Destroy(e.gameObject);
@@ -224,7 +229,7 @@ public class ERCAgent : MonoBehaviour
             i++;
         }
 
-        //
+
         foreach(Emergency e in Calls)
         {
             if (!EmergencyDic.ContainsKey(e.gameObject.transform.position))
@@ -430,7 +435,7 @@ public class ERCAgent : MonoBehaviour
                 CommunicationSystem.checkMedHelps(this, out helping, out emh);
                 if (helping)
                 {
-                    Debug.Log(this + "borrowed ambulance to" + emh.MyArea);
+                    //Debug.Log(this + "borrowed ambulance to" + emh.MyArea);
                     Ambulance am = ambulances[0];
                     ambulances.RemoveAt(0);
                     am.SendAmbulance(emh);
@@ -446,7 +451,7 @@ public class ERCAgent : MonoBehaviour
                 CommunicationSystem.checkFireHelps(this, out helping, out emh);
                 if (helping)
                 {
-                    Debug.Log(this + "borrowed firetruck to" + emh.MyArea);
+                    //Debug.Log(this + "borrowed firetruck to" + emh.MyArea);
                     Firetruck am = firetrucks[0];
                     firetrucks.RemoveAt(0);
                     am.SendFiretruck(emh);
@@ -521,6 +526,7 @@ public class ERCAgent : MonoBehaviour
         if (EmergenciesBeingTreated.Contains(em))
         {
             EmergenciesBeingTreated.Remove(em);
+            em.SendStatistics();
             Destroy(em.gameObject);
             Destroy(em);
             myArea.atualEmergencies--;
@@ -532,6 +538,7 @@ public class ERCAgent : MonoBehaviour
         if (EmergenciesBeingTreated.Contains(em))
         {
             EmergenciesBeingTreated.Remove(em);
+            em.SendStatistics();
             Destroy(em.gameObject);
             Destroy(em);
             myArea.ImpossibleEmergencies += 1;

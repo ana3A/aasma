@@ -231,7 +231,7 @@ MonoBehaviour:
   TimeBetween: 0.1
   MyERC: {fileID: 1430582808}
   atualEmergencies: 0
-  maxEmergencies: 15
+  maxEmergencies: 5
   maxFailures: 15
   nRestarts: 3
   allPeople: 0
@@ -395,7 +395,7 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: beRandom
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}

@@ -120,12 +120,19 @@ public class Ambulance : Resource
 
     private void TreatEmergency()
     {
-
-        if (peopleToTransport == maxPeople)
+        if (Decentralized && myEmergency.NAmbulances == 1 && peopleToTransport == maxPeople && myEmergency.GetEmergencyPeopleEnvolved() > 0)
         {
             onEmergency = false;
             goingToERC = true;
             myEmergency.NAmbulances -= 1;
+            if (!myERC.MedicalEmergenciesWaiting.Contains(myEmergency))
+            {
+                myERC.MedicalEmergenciesWaiting.Add(myEmergency);
+            }
+            if (myEmergency.NFiretrucks <= 0)
+            {
+                myERC.EmergenciesBeingTreated.Remove(myEmergency);
+            }
             return;
         }
 
@@ -136,11 +143,30 @@ public class Ambulance : Resource
             myEmergency.NAmbulances -= 1;
             if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0 && myEmergency.GetEmergencyDisasterLife() <= 0)
             {
+                myERC.MedicalEmergenciesWaiting.Remove(myEmergency);
+                myERC.DisasterEmergenciesWaiting.Remove(myEmergency);
                 myERC.EmergencyEnded(myEmergency);
+            }
+
+            //else if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0 && myEmergency.GetEmergencyDisasterLife() >= 250)
+            //{
+            //    myERC.EmergencyImpossible(myEmergency);
+            //}
+
+            else if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0)
+            {
+                myERC.EmergenciesBeingTreated.Remove(myEmergency);
             }
             return;
         }
 
+        if (peopleToTransport == maxPeople)
+        {
+            onEmergency = false;
+            goingToERC = true;
+            myEmergency.NAmbulances -= 1;
+            return;
+        }
 
         if (waitTime >= myEmergency.WaitTime)
         {

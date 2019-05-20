@@ -70,10 +70,11 @@ public class Firetruck : Resource
         myERC.SendFiretruck(this);
         myEmergency.SendResources(0, 1);
 
-        if (myEmergency.NeededFiretrucks() < 1)
+        if (myEmergency.NeededFiretrucks() < 1 || myEmergency.GetEmergencyDisasterLife() > 250)
         {
             myERC.DisasterEmergencyControlled(myEmergency);
         }
+
     }
 
 
@@ -125,11 +126,19 @@ public class Firetruck : Resource
     private void TreatEmergency()
     {
 
-        if (curWaterDeposit <= 0)
+        if (Decentralized && myEmergency.NFiretrucks == 1 && curWaterDeposit <=0 && myEmergency.GetEmergencyDisasterLife() > 0)
         {
             onEmergency = false;
             goingToERC = true;
             myEmergency.NFiretrucks -= 1;
+            if (!myERC.DisasterEmergenciesWaiting.Contains(myEmergency))
+            {
+                myERC.DisasterEmergenciesWaiting.Add(myEmergency);
+            }
+            if (myEmergency.NAmbulances <= 0)
+            {
+                myERC.EmergenciesBeingTreated.Remove(myEmergency);
+            }
             return;
         }
 
@@ -140,21 +149,45 @@ public class Firetruck : Resource
             myEmergency.NFiretrucks -= 1;
             if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0 && myEmergency.GetEmergencyPeopleEnvolved() < 1)
             {
+                myERC.MedicalEmergenciesWaiting.Remove(myEmergency);
+                myERC.DisasterEmergenciesWaiting.Remove(myEmergency);
                 myERC.EmergencyEnded(myEmergency);
+            }
+
+            else if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0)
+            {
+                myERC.EmergenciesBeingTreated.Remove(myEmergency);
             }
             return;
         }
 
-        if (myEmergency.GetEmergencyDisasterLife() >= 500)
+        if (myEmergency.GetEmergencyDisasterLife() >= 250)
         {
-            Debug.Log("impossivel!!!!!!!!!!!!!!!" + myEmergency.GetEmergencyDisasterLife());
             onEmergency = false;
             goingToERC = true;
             myEmergency.NFiretrucks -= 1;
-            if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0)
+            if (Decentralized && myEmergency.NAmbulances <= 0 && myEmergency.NFiretrucks <= 0 && myEmergency.GetEmergencyPeopleEnvolved() < 1)
             {
+                myERC.MedicalEmergenciesWaiting.Remove(myEmergency);
+                myERC.DisasterEmergenciesWaiting.Remove(myEmergency);
                 myERC.EmergencyImpossible(myEmergency);
             }
+            else if (Decentralized && myEmergency.NFiretrucks <= 0)
+            {
+                myERC.DisasterEmergenciesWaiting.Add(myEmergency);
+                if(myEmergency.NAmbulances <= 0)
+                {
+                    myERC.EmergenciesBeingTreated.Remove(myEmergency);
+                }
+            }
+            return;
+        }
+
+        if (curWaterDeposit <= 0)
+        {
+            onEmergency = false;
+            goingToERC = true;
+            myEmergency.NFiretrucks -= 1;
             return;
         }
 

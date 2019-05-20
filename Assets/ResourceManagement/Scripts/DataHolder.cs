@@ -86,6 +86,12 @@ public class DataHolder : MonoBehaviour
             logFile.WriteLine("ImpossibleEmergencies");
             ImpossibleEmergencies.ForEach(logFile.WriteLine);
 
+            logFile.WriteLine("WastedAmbulances");
+            WastedAmbulances.ForEach(logFile.WriteLine);
+
+            logFile.WriteLine("WastedFiretrucks");
+            WastedFiretrucks.ForEach(logFile.WriteLine);
+
             logFile.WriteLine("------------------------------------------------");
 
         }

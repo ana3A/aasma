@@ -212,12 +212,12 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nAmbulances
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nFiretruck
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -330,12 +330,12 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nAmbulances
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nFiretruck
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -473,8 +473,8 @@ MonoBehaviour:
   TimeBetween: 0.1
   MyERC: {fileID: 309412581}
   atualEmergencies: 0
-  maxEmergencies: 15
-  maxFailures: 20
+  maxEmergencies: 5
+  maxFailures: 15
   nRestarts: 0
   allPeople: 0
   peopleSaved: 0
@@ -491,6 +491,7 @@ MonoBehaviour:
   maxResponseTime: -1
   maxPeopleSaved: 0
   maxPeopleNotSaved: 0
+  ImpossibleEmergencies: 0
 --- !u!114 &320204088 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
@@ -535,8 +536,8 @@ MonoBehaviour:
   TimeBetween: 0.1
   MyERC: {fileID: 1654471031}
   atualEmergencies: 0
-  maxEmergencies: 15
-  maxFailures: 20
+  maxEmergencies: 5
+  maxFailures: 15
   nRestarts: 0
   allPeople: 0
   peopleSaved: 0
@@ -553,6 +554,7 @@ MonoBehaviour:
   maxResponseTime: -1
   maxPeopleSaved: 0
   maxPeopleNotSaved: 0
+  ImpossibleEmergencies: 0
 --- !u!1 &569645897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1819751139121548, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
@@ -585,8 +587,8 @@ MonoBehaviour:
   TimeBetween: 0.1
   MyERC: {fileID: 320204088}
   atualEmergencies: 0
-  maxEmergencies: 15
-  maxFailures: 20
+  maxEmergencies: 5
+  maxFailures: 15
   nRestarts: 0
   allPeople: 0
   peopleSaved: 0
@@ -603,6 +605,7 @@ MonoBehaviour:
   maxResponseTime: -1
   maxPeopleSaved: 0
   maxPeopleNotSaved: 0
+  ImpossibleEmergencies: 0
 --- !u!1 &1059039445
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,12 +790,12 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nAmbulances
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nFiretruck
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -1009,12 +1012,12 @@ PrefabInstance:
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nAmbulances
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
       propertyPath: nFiretruck
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7348532021969171309, guid: 43259c16bc42d4d44bfc0be5daaf1c2d,
         type: 3}
@@ -1350,13 +1353,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 062dafab24ba16c4890d598aa86354a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nRestarts: 3
+  nRestarts: 10
   responseTimes: []
   peopleSaved: 
   peopleNotSaved: 
   allPeople: 
   runTimes: []
   burnedRatios: []
+  ImpossibleEmergencies: 
+  WastedAmbulances: 
+  WastedFiretrucks: 
   maxResponseTime: -1
   maxPeopleSaved: 0
   maxPeopleNotSaved: 0
@@ -1406,8 +1412,8 @@ MonoBehaviour:
   TimeBetween: 0.1
   MyERC: {fileID: 140715431}
   atualEmergencies: 0
-  maxEmergencies: 15
-  maxFailures: 20
+  maxEmergencies: 5
+  maxFailures: 15
   nRestarts: 0
   allPeople: 0
   peopleSaved: 0
@@ -1424,3 +1430,4 @@ MonoBehaviour:
   maxResponseTime: -1
   maxPeopleSaved: 0
   maxPeopleNotSaved: 0
+  ImpossibleEmergencies: 0
